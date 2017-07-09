@@ -1,0 +1,21 @@
+spring.social:
+  auto-connection-views: false
+
+  twitter:
+    app-id: reMZX6SEgJsMyugWzEKezvKXe
+    app-secret: Zyhq7BdsTp2xLtOymm7zJVXrKp38GDRXvW5avFQ90KqoZDNR7q
+
+endpoint.url:
+  base: https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod
+  twitter: ${endpoint.url.base}/twitter/
+  session: ${endpoint.url.base}/sessions/
+  speaker: ${endpoint.url.base}/speakers/
+
+twitter.access:
+  token: 215640018-09GO61YYuCbPgwi2Kt89o2us9M7mMSfYAlIgl4Eg
+  secret: xIgMRyV3qO1xce2OYTlA2mIMXRlYFq5Rlpro2veazimhU
+
+spring:
+  jackson:
+    serialization:
+      WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false

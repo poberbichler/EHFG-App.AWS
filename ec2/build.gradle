@@ -1,0 +1,29 @@
+plugins {
+    id 'org.springframework.boot' version '1.5.4.RELEASE'
+}
+
+group 'org.ehfg.app.lightsail'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'groovy'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+}
+
+dependencies {
+    def luceneVersion = '6.6.0'
+
+    compile 'org.springframework.boot:spring-boot-starter-web'
+    compile 'org.springframework.boot:spring-boot-starter-social-twitter'
+    compile 'org.springframework.boot:spring-boot-devtools'
+    compile 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    compile "org.apache.lucene:lucene-core:$luceneVersion"
+
+
+    compile 'org.codehaus.groovy:groovy-all:2.4.11'
+
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+

@@ -1,0 +1,38 @@
+{
+  "tweets" : [ ],
+  "results" : [ {
+    "type" : "LOCATION",
+    "data" : [ ]
+  }, {
+    "type" : "SESSION",
+    "data" : [ {
+      "id" : "175",
+      "type" : "SESSION",
+      "description" : "CLOSING PLENARY"
+    }, {
+      "id" : "178",
+      "type" : "SESSION",
+      "description" : "Late breaking topic: Beyond BREXIT"
+    }, {
+      "id" : "149",
+      "type" : "SESSION",
+      "description" : "Urban environments and NCDs"
+    }, {
+      "id" : "179",
+      "type" : "SESSION",
+      "description" : "OPENING PLENARY"
+    }, {
+      "id" : "159",
+      "type" : "SESSION",
+      "description" : "Health literacy"
+    } ]
+  }, {
+    "type" : "SPEAKER",
+    "data" : [ {
+      "id" : "124",
+      "type" : "SPEAKER",
+      "description" : "Brand Helmut"
+    } ]
+  } ],
+  "hasAnyResult" : true
+}

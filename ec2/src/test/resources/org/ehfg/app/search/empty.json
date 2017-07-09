@@ -1,0 +1,14 @@
+{
+  "tweets" : [ ],
+  "results" : [ {
+    "type" : "LOCATION",
+    "data" : [ ]
+  }, {
+    "type" : "SESSION",
+    "data" : [ ]
+  }, {
+    "type" : "SPEAKER",
+    "data" : [ ]
+  } ],
+  "hasAnyResult" : false
+}
