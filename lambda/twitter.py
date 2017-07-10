@@ -1,17 +1,17 @@
 import json
+import os
+from itertools import takewhile
 
 import boto3
-from itertools import takewhile
-import os
 
 print('Loading function')
 
-s3 = boto3.client('s3')
 PAGE_SIZE = int(os.environ['PAGE_SIZE'])
 CURRENT_HASHTAG = os.environ['HASHTAG']
 
 
 def lambda_handler(event, context):
+    s3 = boto3.client('s3')
     print("Received event: " + json.dumps(event, indent=2))
 
     try:
@@ -23,7 +23,7 @@ def lambda_handler(event, context):
         elif "timestamp" in event:
             return [tweet for tweet in tweets if tweet["timestamp"] > int(event["timestamp"])]
         elif "tweetId" in event:
-            return _find_newer_by_id(tweets, int(event["tweetId"]))
+            return _find_newer_by_id(tweets, event["tweetId"])
         else:
             raise ValueError("only 'pageId' and 'timestamp' are allowed as input params")
     except Exception as e:
