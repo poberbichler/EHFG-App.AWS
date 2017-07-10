@@ -8,14 +8,14 @@ print('Loading function')
 
 PAGE_SIZE = int(os.environ['PAGE_SIZE'])
 CURRENT_HASHTAG = os.environ['HASHTAG']
+s3 = boto3.client('s3')
 
 
 def lambda_handler(event, context):
-    s3 = boto3.client('s3')
     print("Received event: " + json.dumps(event, indent=2))
 
     try:
-        response = s3.get_object(Bucket="ehfg-app", Key="twitter.json")
+        response = s3.get_object(Bucket="ehfg-app123555", Key="twitter.json")
         tweets = json.loads(response['Body'].read().decode('utf-8'))
 
         if "pageId" in event:
