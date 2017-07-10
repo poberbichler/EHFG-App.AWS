@@ -2,7 +2,7 @@ plugins {
     id 'org.springframework.boot' version '1.5.4.RELEASE'
 }
 
-group 'org.ehfg.app.lightsail'
+group 'org.ehfg.app'
 version '1.0-SNAPSHOT'
 
 apply plugin: 'groovy'
