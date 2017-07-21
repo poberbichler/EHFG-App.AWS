@@ -66,4 +66,4 @@ def test_tweets_by_timestamp(twitter):
 def test_add_new_tweet(twitter, tweets, new_tweet):
     all_tweets = twitter.lambda_handler(new_tweet, "context")
     assert len(all_tweets) == len(tweets) + 1
-    assert all_tweets[0]["id"] == 12345
+    assert all_tweets[0]["id"] == "12345"

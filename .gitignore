@@ -1,5 +1,8 @@
 .DS_STORE
-*/build/
-*/.gradle
-*/.idea
+build/
+.gradle
+.idea
 *.iml
+out
+__pycache__
+.cache
