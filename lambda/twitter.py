@@ -27,7 +27,7 @@ def lambda_handler(event, context):
         elif "tweet" in event:
             return _add_tweet(s3, tweets, event["tweet"])
         else:
-            raise ValueError("only 'pageId' and 'timestamp' are allowed as input params")
+            raise ValueError("only 'pageId', 'tweetId', 'tweet' and 'timestamp' are allowed as input params")
     except Exception as e:
         print(e)
         raise e
@@ -59,6 +59,6 @@ def _find_newer_by_id(all_tweets, tweetId):
 
 
 def _add_tweet(s3, all_tweets, new_tweet):
-    all_tweets.insert(0, new_tweet)
-    s3.put_object(Bucket="ehfg-app", Key="twitter.json", Body=json.dumps(all_tweets, indent=2).encode("utf-8"))
-    return all_tweets
+    result = [new_tweet] + all_tweets
+    s3.put_object(Bucket="ehfg-app", Key="twitter.json", Body=json.dumps(result, indent=2).encode("utf-8"))
+    return result

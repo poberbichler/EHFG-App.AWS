@@ -6,6 +6,7 @@ from unittest.mock import MagicMock
 
 import boto3
 import pytest
+
 from botocore.response import StreamingBody
 from botocore.stub import Stubber
 
@@ -33,6 +34,7 @@ def twitter(mocker, tweets, new_tweet):
 
     combined_tweets = json.dumps([new_tweet["tweet"]] + tweets, indent=2).encode("utf-8")
     stubber.add_response("put_object", {}, {"Body": combined_tweets, **expected_params})
+
 
     stubber.activate()
     mocker.patch.object(boto3, 'client', MagicMock(return_value=s3))
@@ -67,3 +69,13 @@ def test_add_new_tweet(twitter, tweets, new_tweet):
     all_tweets = twitter.lambda_handler(new_tweet, "context")
     assert len(all_tweets) == len(tweets) + 1
     assert all_tweets[0]["id"] == "12345"
+
+
+def test_add_multiple_tweets(twitter, tweets, new_tweet):
+    twitter.lambda_handler(new_tweet, "context")
+    new_tweet["tweet"]["id"] = "111111"
+    all_tweets = twitter.lambda_handler(new_tweet, "context")
+
+    assert len(all_tweets) == len(tweets) + 2
+    assert all_tweets[0]["id"] == "111111"
+    assert all_tweets[2]["id"] == "12345"
