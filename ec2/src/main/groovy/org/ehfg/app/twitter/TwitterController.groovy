@@ -1,6 +1,7 @@
 package org.ehfg.app.twitter
 
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 /**
@@ -18,13 +19,17 @@ class TwitterController {
     }
 
     @GetMapping
-    List<String> getListener() {
+    Collection<String> getListener() {
         return this.twitterService.getListener()
     }
 
     @PostMapping("{hashtag}")
-    void addListener(@PathVariable("hashtag") String hashtag) {
-        this.twitterService.addListener(hashtag)
+    ResponseEntity<?> addListener(@PathVariable("hashtag") String hashtag) {
+        if (this.twitterService.addListener(hashtag)) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(hashtag)
+        }
+
+        return ResponseEntity.ok(hashtag)
     }
 
     @DeleteMapping("{hashtag}")

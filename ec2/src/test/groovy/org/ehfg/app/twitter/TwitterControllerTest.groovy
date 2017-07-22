@@ -14,6 +14,7 @@ import static org.mockito.Mockito.verify
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+
 /**
  * @author patrick
  * @since 07.2017
@@ -38,8 +39,20 @@ class TwitterControllerTest {
 
     @Test
     void postShouldAddStream() {
+        given(twitterService.addListener("EHFG2017")).willReturn(true)
+        mockMvc.perform(post("/twitter/EHFG2017"))
+                .andExpect(status().isCreated())
+                .andExpect(content().string("EHFG2017"))
+
+        verify(twitterService).addListener("EHFG2017")
+    }
+
+    @Test
+    void existingPostShouldReturnOk() {
+        given(twitterService.addListener("EHFG2017")).willReturn(false)
         mockMvc.perform(post("/twitter/EHFG2017"))
                 .andExpect(status().isOk())
+                .andExpect(content().string("EHFG2017"))
 
         verify(twitterService).addListener("EHFG2017")
     }

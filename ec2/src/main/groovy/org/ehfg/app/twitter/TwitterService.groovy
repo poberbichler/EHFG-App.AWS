@@ -5,7 +5,7 @@ package org.ehfg.app.twitter
  * @since 06.2017
  */
 interface TwitterService {
-    void addListener(String hashtag)
+    boolean addListener(String hashtag)
 
     boolean removeListener(String hasthag)
 

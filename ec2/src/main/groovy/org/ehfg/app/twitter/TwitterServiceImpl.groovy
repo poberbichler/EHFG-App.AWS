@@ -25,12 +25,19 @@ class TwitterServiceImpl implements TwitterService {
     }
 
     @Override
-    void addListener(String hashtag) {
+    boolean addListener(String hashtag) {
         log.info("adding listener for hashtag [{}]", hashtag)
+
+        if (hashtag in this.activeListener.keySet()) {
+            log.info("already registered listener for hashtag [{}]", hashtag)
+            return false
+        }
+
         def stream = this.twitterTemplate.streamingOperations()
                 .filter(hashtag, [streamListener])
 
-        this.activeListener.put(hashtag, stream)
+        this.activeListener << [(hashtag): stream]
+        return true
     }
 
 

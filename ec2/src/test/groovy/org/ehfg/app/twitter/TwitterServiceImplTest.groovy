@@ -1,5 +1,6 @@
 package org.ehfg.app.twitter
 
+import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -12,6 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner
 
 import static org.assertj.core.api.Assertions.assertThat
 import static org.mockito.BDDMockito.given
+
 /**
  * @author patrick
  * @since 07.2017
@@ -33,6 +35,11 @@ class TwitterServiceImplTest {
         given(twitterTemplate.streamingOperations()).willReturn(streamingOperations)
     }
 
+    @After
+    void cleanListeners() {
+        this.twitterService.getListener().each { this.twitterService.removeListener(it) }
+    }
+
     @Test
     void addAndRemoveListener() {
         assertThat(this.twitterService.getListener()).isEmpty()
@@ -45,5 +52,17 @@ class TwitterServiceImplTest {
 
         this.twitterService.removeListener("EHFG2017")
         assertThat(this.twitterService.getListener()).isEmpty()
+    }
+
+    @Test
+    void addListenerMultipleTimes() {
+        assertThat(this.twitterService.getListener()).isEmpty()
+
+        def firstAnswer = this.twitterService.addListener("EHFG2017")
+        def secondAnswer = this.twitterService.addListener("EHFG2017")
+
+        assertThat(this.twitterService.getListener()).hasSize(1)
+        assertThat(firstAnswer).isTrue()
+        assertThat(secondAnswer).isFalse()
     }
 }
