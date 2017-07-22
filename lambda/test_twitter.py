@@ -13,6 +13,9 @@ from botocore.stub import Stubber
 
 @pytest.fixture
 def tweets():
+    import sys
+    print(f"using {sys.executable}")
+
     with open("test/tweets.json") as f:
         return json.load(f)
 
@@ -35,6 +38,10 @@ def twitter(mocker, tweets, new_tweet):
     combined_tweets = json.dumps([new_tweet["tweet"]] + tweets, indent=2).encode("utf-8")
     stubber.add_response("put_object", {}, {"Body": combined_tweets, **expected_params})
 
+    tweets_including_new = [new_tweet['tweet']] + tweets
+    streaming_body2 = StreamingBody(BytesIO(bytes(json.dumps(tweets_including_new), 'utf-8')), len(json.dumps(tweets_including_new)))
+    stubber.add_response("get_object", {"Body": streaming_body2}, expected_params)
+    stubber.add_response("put_object", {}, expected_params=None)
 
     stubber.activate()
     mocker.patch.object(boto3, 'client', MagicMock(return_value=s3))
@@ -72,10 +79,10 @@ def test_add_new_tweet(twitter, tweets, new_tweet):
 
 
 def test_add_multiple_tweets(twitter, tweets, new_tweet):
-    twitter.lambda_handler(new_tweet, "context")
+    all_tweets = twitter.lambda_handler(new_tweet, "context")
     new_tweet["tweet"]["id"] = "111111"
     all_tweets = twitter.lambda_handler(new_tweet, "context")
 
     assert len(all_tweets) == len(tweets) + 2
     assert all_tweets[0]["id"] == "111111"
-    assert all_tweets[2]["id"] == "12345"
+    assert all_tweets[1]["id"] == "12345"
