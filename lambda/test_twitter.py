@@ -13,16 +13,13 @@ from botocore.stub import Stubber
 
 @pytest.fixture
 def tweets():
-    import sys
-    print(f"using {sys.executable}")
-
-    with open("test/tweets.json") as f:
+    with open("test/tweets.json", encoding="utf8") as f:
         return json.load(f)
 
 
 @pytest.fixture
 def new_tweet():
-    with open("test/new_tweet.json") as f:
+    with open("test/new_tweet.json", encoding="utf8") as f:
         return json.load(f)
 
 
