@@ -9,6 +9,7 @@ import org.springframework.social.twitter.api.StreamListener
 import org.springframework.social.twitter.api.StreamWarningEvent
 import org.springframework.stereotype.Service
 import org.springframework.web.client.RestTemplate
+
 /**
  * @author patrick
  * @since 07.2017

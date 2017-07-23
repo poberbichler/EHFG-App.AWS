@@ -1,5 +1,8 @@
 package org.ehfg.app.twitter
 
+import com.fasterxml.jackson.annotation.JsonProperty
+import groovy.transform.ToString
+
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -7,10 +10,12 @@ import java.time.ZonedDateTime
  * @author patrick
  * @since 06.2017
  */
+@ToString
 class Tweet {
     long id
 
     String message
+    @JsonProperty("timestamp")
     ZonedDateTime creationDate
     String hashtag
     String formattedMesssage
@@ -32,7 +37,7 @@ class Tweet {
             this.author = new TwitterUser(id: id,
                     fullName: name,
                     nickName: screenName,
-                    profileImage: profileImageUrl)
+                    profileImage: profileImageUrl.replaceFirst("http:", "https:"))
         }
     }
 

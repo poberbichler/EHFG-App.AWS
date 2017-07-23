@@ -39,7 +39,7 @@ class TweetMappingTest {
                 assertThat(id).isEqualTo(sourceTweet.fromUserId)
                 assertThat(fullName).isEqualTo(sourceTweet.user.name)
                 assertThat(nickName).isEqualTo(sourceTweet.user.screenName)
-                assertThat(profileImage).isEqualTo(sourceTweet.profileImageUrl)
+                assertThat(profileImage).isEqualTo("https://pbs.twimg.com/profile_images/855124102021074944/FsJ1Cum5_normal.jpg")
             }
         }
     }
@@ -60,7 +60,7 @@ class TweetMappingTest {
                 [new HashTagEntity("EHFG201", null), new HashTagEntity("EHFG2017", null)],
                 [], []))
         sourceTweet.user = new TwitterProfile(215640018L, "p_oberbichler",
-                "Patrick Oberbichler", null, "https://pbs.twimg.com/profile_images/855124102021074944/FsJ1Cum5_normal.jpg",
+                "Patrick Oberbichler", null, "http://pbs.twimg.com/profile_images/855124102021074944/FsJ1Cum5_normal.jpg",
                 "description", "location", new Date())
         return sourceTweet
     }
