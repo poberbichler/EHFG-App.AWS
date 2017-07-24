@@ -60,5 +60,10 @@ def _find_newer_by_id(all_tweets, tweetId):
 
 def _add_tweet(s3, all_tweets, new_tweet):
     result = [new_tweet] + all_tweets
+    if new_tweet["retweet"]:
+        retweet = next((tweet for tweet in all_tweets if str(tweet["id"]) == new_tweet["retweetId"]), None)
+        if retweet:
+            retweet["retweetedBy"].append(new_tweet["author"]["nickName"])
+
     s3.put_object(Bucket="ehfg-app", Key="twitter.json", Body=json.dumps(result, indent=2).encode("utf-8"))
     return result
