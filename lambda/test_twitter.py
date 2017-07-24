@@ -32,8 +32,7 @@ def twitter(mocker, tweets, new_tweet):
     expected_params = {"Bucket": "ehfg-app", "Key": "twitter.json"}
     stubber.add_response("get_object", {"Body": streaming_body}, expected_params)
 
-    combined_tweets = json.dumps([new_tweet["tweet"]] + tweets, indent=2).encode("utf-8")
-    stubber.add_response("put_object", {}, {"Body": combined_tweets, **expected_params})
+    stubber.add_response("put_object", {}, expected_params=None)
 
     tweets_including_new = [new_tweet['tweet']] + tweets
     streaming_body2 = StreamingBody(BytesIO(bytes(json.dumps(tweets_including_new), 'utf-8')), len(json.dumps(tweets_including_new)))
@@ -76,10 +75,21 @@ def test_add_new_tweet(twitter, tweets, new_tweet):
 
 
 def test_add_multiple_tweets(twitter, tweets, new_tweet):
-    all_tweets = twitter.lambda_handler(new_tweet, "context")
+    twitter.lambda_handler(new_tweet, "context")
     new_tweet["tweet"]["id"] = "111111"
     all_tweets = twitter.lambda_handler(new_tweet, "context")
 
     assert len(all_tweets) == len(tweets) + 2
     assert all_tweets[0]["id"] == "111111"
     assert all_tweets[1]["id"] == "12345"
+
+
+def test_add_retweet(twitter, tweets, new_tweet):
+    new_tweet["tweet"]["retweet"] = True
+    new_tweet["tweet"]["retweetId"] = tweets[2]["id"]
+
+    assert new_tweet["tweet"]["nickName"] not in tweets[2]["retweetedBy"]
+    all_tweets = twitter.lambda_handler(new_tweet, "context")
+
+    assert len(all_tweets) == len(tweets) + 1
+    assert new_tweet["tweet"]["nickName"] in all_tweets[3]["retweetedBy"]  # length is actually one more now
