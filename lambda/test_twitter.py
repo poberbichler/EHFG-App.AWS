@@ -88,8 +88,8 @@ def test_add_retweet(twitter, tweets, new_tweet):
     new_tweet["tweet"]["retweet"] = True
     new_tweet["tweet"]["retweetId"] = tweets[2]["id"]
 
-    assert new_tweet["tweet"]["nickName"] not in tweets[2]["retweetedBy"]
+    assert new_tweet["tweet"]["author"]["nickName"] not in tweets[2]["retweetedBy"]
     all_tweets = twitter.lambda_handler(new_tweet, "context")
 
     assert len(all_tweets) == len(tweets) + 1
-    assert new_tweet["tweet"]["nickName"] in all_tweets[3]["retweetedBy"]  # length is actually one more now
+    assert new_tweet["tweet"]["author"]["nickName"] in all_tweets[3]["retweetedBy"]  # length is actually one more now
