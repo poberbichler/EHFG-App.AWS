@@ -21,7 +21,7 @@ class TweetMappingTest {
 
     @Test
     void transformSpringSocialTweet() {
-        org.springframework.social.twitter.api.Tweet sourceTweet = createTweet()
+        org.springframework.social.twitter.api.Tweet sourceTweet = createTweet(123)
 
         def targetTweet = new Tweet(sourceTweet)
         targetTweet.with {
@@ -34,6 +34,7 @@ class TweetMappingTest {
 
             assertThat(retweet).isFalse()
             assertThat(retweetedBy).isEmpty()
+            assertThat(retweetId).isNull()
 
             author.with {
                 assertThat(id).isEqualTo(sourceTweet.fromUserId)
@@ -44,13 +45,30 @@ class TweetMappingTest {
         }
     }
 
-    static org.springframework.social.twitter.api.Tweet createTweet() {
-        return createTweet(LocalDateTime.now())
+    @Test
+    void transformRetweet() {
+        def tweet = createTweet(111)
+        tweet.retweetedStatus = createTweet(123)
+
+        def targetTweet = new Tweet(tweet)
+        targetTweet.with {
+            assertThat(id).is(111)
+            assertThat(retweet).isTrue()
+            assertThat(retweetId).is("123")
+        }
     }
 
-    static org.springframework.social.twitter.api.Tweet createTweet(LocalDateTime createdAt) {
+    static org.springframework.social.twitter.api.Tweet createTweet(LocalDateTime dateTime) {
+        return createTweet(dateTime, 123)
+    }
+
+    static org.springframework.social.twitter.api.Tweet createTweet(long id) {
+        return createTweet(LocalDateTime.now(), id)
+    }
+
+    static org.springframework.social.twitter.api.Tweet createTweet(LocalDateTime createdAt, long id) {
         def sourceTweet = new org.springframework.social.twitter.api.Tweet(
-                123L, "Hallo Welt #EHFG201 #EHFG2017 https://t.co/SHrGE6dZE0", Date.from(createdAt.toInstant(ZoneOffset.UTC)),
+                id, "Hallo Welt #EHFG201 #EHFG2017 https://t.co/SHrGE6dZE0", Date.from(createdAt.toInstant(ZoneOffset.UTC)),
                 "p_oberbichler", "https://pbs.twimg.com/profile_images/855124102021074944/FsJ1Cum5_normal.jpg",
                 0L, 215640018, "DE",
                 '<a href="http://twitter.com" rel="nofllow">Twitter Web Client<a/>')

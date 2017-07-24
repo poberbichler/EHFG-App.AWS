@@ -16,6 +16,7 @@ class Tweet {
     String formattedMesssage
 
     boolean retweet = false
+    String retweetId
     List<String> retweetedBy = new LinkedList<>()
 
     TwitterUser author
@@ -27,6 +28,8 @@ class Tweet {
         this.retweet = source.retweet
         this.hashtag = findHashtag(source)
         this.formattedMesssage = createFormattedMessage(source)
+
+        this.retweetId = source.retweetedStatus?.id
 
         source.user.with {
             this.author = new TwitterUser(id: id,
