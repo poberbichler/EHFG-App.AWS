@@ -1,6 +1,8 @@
 package org.ehfg.app.twitter
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.fasterxml.jackson.annotation.JsonUnwrapped
 import groovy.transform.ToString
 
 import java.time.ZoneId
@@ -25,6 +27,7 @@ class Tweet {
     String retweetId
     List<String> retweetedBy = new LinkedList<>()
 
+    @JsonUnwrapped
     TwitterUser author
 
     Tweet(org.springframework.social.twitter.api.Tweet source) {
@@ -62,6 +65,7 @@ class Tweet {
 }
 
 class TwitterUser {
+    @JsonIgnore
     long id
 
     String fullName
