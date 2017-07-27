@@ -15,7 +15,5 @@ twitter.access:
   token: 215640018-09GO61YYuCbPgwi2Kt89o2us9M7mMSfYAlIgl4Eg
   secret: xIgMRyV3qO1xce2OYTlA2mIMXRlYFq5Rlpro2veazimhU
 
-spring:
-  jackson:
-    serialization:
-      WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false
+spring.jackson.serialization:
+  WRITE_DATE_TIMESTAMPS_AS_NANOSECONDS: false

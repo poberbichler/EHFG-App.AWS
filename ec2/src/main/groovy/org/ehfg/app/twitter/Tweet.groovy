@@ -6,6 +6,7 @@ import groovy.transform.ToString
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
+import static org.springframework.util.StringUtils.hasText
 /**
  * @author patrick
  * @since 06.2017
@@ -51,7 +52,9 @@ class Tweet {
     private static String createFormattedMessage(org.springframework.social.twitter.api.Tweet source) {
         def message = source.unmodifiedText.replaceAll(/#\w+/,) { "<span class=\"hashtag\">$it</span>" }
         source.entities.urls.each {
-            message = message.replace(it.url, "<a href=\"#\" onclick=\"window.open(\"${it.expandedUrl}\", \"_blank\")>${it.displayUrl}</a>")
+            if (hasText(it.url)) {
+                message = message.replace(it.url, "<a href=\"#\" onclick=\"window.open(\"${it.expandedUrl}\", \"_blank\")>${it.displayUrl}</a>")
+            }
         }
 
         return message

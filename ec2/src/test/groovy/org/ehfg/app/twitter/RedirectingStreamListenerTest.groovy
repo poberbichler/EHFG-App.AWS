@@ -61,7 +61,7 @@ class RedirectingStreamListenerTest {
                 .andExpect(method(HttpMethod.POST))
                 .andExpect(jsonPath("tweet").exists())
                 .andExpect(jsonPath("tweet.id").value(123))
-                .andExpect(jsonPath("tweet.creationDate").value(1493992800000))
+                .andExpect(jsonPath("tweet.timestamp").value(1493992800000))
                 .andExpect(jsonPath("tweet.retweetId").value(111))
                 .andExpect(jsonPath("tweet.retweet").value(true))
                 .andRespond(withSuccess())
