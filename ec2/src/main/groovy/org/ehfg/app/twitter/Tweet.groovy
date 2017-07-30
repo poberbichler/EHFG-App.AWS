@@ -15,7 +15,7 @@ import static org.springframework.util.StringUtils.hasText
  */
 @ToString
 class Tweet {
-    long id
+    String id
 
     String message
     @JsonProperty("timestamp")
@@ -31,7 +31,7 @@ class Tweet {
     TwitterUser author
 
     Tweet(org.springframework.social.twitter.api.Tweet source) {
-        this.id = source.id
+        this.id = source.idStr
         this.message = source.unmodifiedText
         this.creationDate = ZonedDateTime.ofInstant(source.createdAt.toInstant(), ZoneId.systemDefault())
         this.retweet = source.retweet

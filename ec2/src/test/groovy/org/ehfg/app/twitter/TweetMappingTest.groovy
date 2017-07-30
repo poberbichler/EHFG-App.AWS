@@ -25,7 +25,7 @@ class TweetMappingTest {
 
         def targetTweet = new Tweet(sourceTweet)
         targetTweet.with {
-            assertThat(id).isEqualTo(sourceTweet.id)
+            assertThat(id).isEqualTo(sourceTweet.idStr)
             assertThat(message).isEqualTo(sourceTweet.unmodifiedText)
             assertThat(creationDate).isEqualTo(ZonedDateTime.ofInstant(sourceTweet.createdAt.toInstant(), ZoneId.systemDefault()))
             assertThat(hashtag).isEqualTo("EHFG2017")
