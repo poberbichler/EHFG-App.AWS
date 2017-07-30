@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
 import com.fasterxml.jackson.annotation.JsonUnwrapped
 import groovy.transform.ToString
 
+import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
@@ -33,7 +34,8 @@ class Tweet {
     Tweet(org.springframework.social.twitter.api.Tweet source) {
         this.id = source.idStr
         this.message = source.unmodifiedText
-        this.creationDate = ZonedDateTime.ofInstant(source.createdAt.toInstant(), ZoneId.systemDefault())
+        this.creationDate = LocalDateTime.ofInstant(source.createdAt.toInstant(), ZoneId.of("GMT+2"))
+                .atZone(ZoneId.of("UTC"))
         this.retweet = source.retweet
         this.hashtag = findHashtag(source)
         this.formattedMesssage = createFormattedMessage(source)
@@ -66,7 +68,7 @@ class Tweet {
 
 class TwitterUser {
     @JsonIgnore
-    long id
+    String id
 
     String fullName
     String nickName
