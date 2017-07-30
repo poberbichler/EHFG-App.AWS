@@ -35,10 +35,10 @@ def lambda_handler(event, context):
 
 class TweetPage:
     def __init__(self, all_tweets, page_id):
-        self.data = all_tweets[page_id * 0: (page_id + 1) * PAGE_SIZE]
-        self.max_pages = len(all_tweets) / PAGE_SIZE
+        self.data = all_tweets[page_id * PAGE_SIZE : (page_id + 1) * PAGE_SIZE]
+        self.max_pages = int(len(all_tweets) / PAGE_SIZE)
         self.current_page = page_id
-        self.more_pages = page_id != self.max_pages
+        self.more_pages = page_id != (self.max_pages - 1)
         self.current_hashtag = CURRENT_HASHTAG
 
     def json(self):
