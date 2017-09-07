@@ -56,7 +56,7 @@ class Tweet {
         def message = source.unmodifiedText.replaceAll(/#\w+/,) { "<span class=\"hashtag\">$it</span>" }
         source.entities.urls.each {
             if (hasText(it.url)) {
-                message = message.replace(it.url, "<a href=\"#\" onclick=\"window.open(\"${it.expandedUrl}\", \"_blank\")>${it.displayUrl}</a>")
+                message = message.replace(it.url, "<a href=\"#\" onclick=\"window.open('${it.expandedUrl}', '_blank')\">${it.displayUrl}</a>")
             }
         }
 
