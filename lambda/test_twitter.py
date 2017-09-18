@@ -58,9 +58,20 @@ def test_tweets_by_id(twitter):
 def test_tweets_by_page_id(twitter):
     result = twitter.lambda_handler({"pageId": "0"}, "context")
 
+    assert result["data"][0]["id"] == "835433245810503680"
     assert len(result["data"]) == 3
     assert result["currentPage"] == 0
     assert result["morePages"] == True
+    assert result["maxPages"] == 10
+
+
+def test_tweets_by_last_page(twitter):
+    result = twitter.lambda_handler({"pageId": "9"}, "context")
+
+    assert result["data"][0]["id"] == "828681671348137985"
+    assert result["currentPage"] == 9
+    assert result["morePages"] == False
+    assert result["maxPages"] == 10
 
 
 def test_tweets_by_timestamp(twitter):

@@ -9,10 +9,8 @@ import org.springframework.social.twitter.api.UrlEntity
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.time.ZoneOffset
-import java.time.ZonedDateTime
 
 import static org.assertj.core.api.Assertions.assertThat
-
 /**
  * @author patrick
  * @since 07.2017
@@ -25,9 +23,9 @@ class TweetMappingTest {
 
         def targetTweet = new Tweet(sourceTweet)
         targetTweet.with {
-            assertThat(id).isEqualTo(sourceTweet.id)
+            assertThat(id).isEqualTo(sourceTweet.idStr)
             assertThat(message).isEqualTo(sourceTweet.unmodifiedText)
-            assertThat(creationDate).isEqualTo(ZonedDateTime.ofInstant(sourceTweet.createdAt.toInstant(), ZoneId.systemDefault()))
+            assertThat(creationDate).isEqualTo(LocalDateTime.ofInstant(sourceTweet.createdAt.toInstant(), ZoneId.of("GMT+2")).atZone(ZoneId.of("UTC")))
             assertThat(hashtag).isEqualTo("EHFG2017")
             assertThat(formattedMesssage).isEqualTo('Hallo Welt <span class="hashtag">#EHFG201</span> <span class="hashtag">#EHFG2017</span> ' +
                     '<a href="#" onclick="window.open("https://github.com/poberbichler/playground-spring-session/blob/master/src/test/java/", "_blank")>github.com/poberbichler/p...</a>')
@@ -37,7 +35,7 @@ class TweetMappingTest {
             assertThat(retweetId).isNull()
 
             author.with {
-                assertThat(id).isEqualTo(sourceTweet.fromUserId)
+                assertThat(id).isEqualTo(sourceTweet.fromUserId.toString())
                 assertThat(fullName).isEqualTo(sourceTweet.user.name)
                 assertThat(nickName).isEqualTo(sourceTweet.user.screenName)
                 assertThat(profileImage).isEqualTo("https://pbs.twimg.com/profile_images/855124102021074944/FsJ1Cum5_normal.jpg")
