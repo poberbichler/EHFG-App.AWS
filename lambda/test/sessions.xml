@@ -1,0 +1,33 @@
+<rss version="2.0">
+	<channel>
+		<title>EHFG Events</title>
+		<link>https://www.ehfg.org/xml-interface/events/</link>
+		<language>en-EN</language>
+		<item>
+			<id>1001</id>
+			<event>Investing in healthier cities: "insuring" prevention</event>
+			<description:encoded>
+				<![CDATA[<p>The health insurance sector is engaged in the politics of pooling health risks while city mayors are in the politics of managing cities. Most of the focus of the health insurance sector is around reducing the costs of treatment rather than prevention for better health and well-being with a subsequent reduced need for treatment. This session proposes to introduce promotive and preventive health into the politics of health insurance and thus encourage healthier cities. It will cover how city mayors can work together with health insurance agencies and companies, guided by health experts, to provide a platform where members of the public and particularly clients of the insurance companies receive information on promoting healthy lifestyle choices and prevention and early treatment of NCDs. The modalities of how this can be initiated and implemented will be discussed and the potential and approaches for improving health literacy for NCDs also explored. Mayors will be encouraged to champion this initiative even as it expands beyond cities.</p><p>The full list of speakers will be announced shortly. </p>]]>
+			</description:encoded>
+			<room>Kursaal C</room>
+			<code>W1</code>
+			<category>Workshop</category>
+			<day>Day 1</day>
+			<start>09:00</start>
+			<end>11:00</end>
+		</item>
+		<item>
+			<id>1002</id>
+			<event>The right health workforce – a matter of planning?</event>
+			<description:encoded>
+				<![CDATA[<p>An appropriately resourced health workforce is an essential pillar of healthcareprovision, vital to quality of care, healthsystem performance and ultimately to population health. Due to changes not only in thefuture of health service delivery but also inemployment patterns and preferences of health professionals, health workforce planning (HWFP) is high on the agenda of decision-makers in Europe. Regarding the implementation of planning results, health policy-makers have to overcome split responsibilities, building bridges betweendifferent professional bodies and ministries. The methodological task itself is also challenging, bearing in mind the long-term impact and the interdisciplinary and intersectoral aspects of HWFP. Although the importance of health workforce governance is beyond doubt, there is no clear answer yet as to the level and nature of planning needed and how policy developments can promote or hamper the relevance of integrated health workforce planning. </p><p> Keynote input MATTHIAS WISMAR, Senior Health Policy Analyst, European Observatory on Health Systems and Policies Panellists BERNHARD GIBIS, Head of Provision and Structure of Health Care Services Department, KBV, Germany ALDO LUPO, President, European Union of General Practitioners / Family Doctors MARIUS-IONUT UNGUREANU, Department of Public Health, Babes-Bolyai University, Romania ANITA RABBEN ASBJØRNSEN, Special Adviser in International Affairs, Norwegian Nurses Organisation Wrap-up HERWIG OSTERMANN, Executive Director, GÖG Facilitation CLAUDIA HABL, GÖG </p>]]>
+			</description:encoded>
+			<room>Room 2</room>
+			<code>W2</code>
+			<category>Workshop</category>
+			<day>Day 1</day>
+			<start>09:00</start>
+			<end>11:00</end>
+		</item>
+	</channel>
+</rss>
