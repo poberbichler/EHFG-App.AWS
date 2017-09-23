@@ -23,7 +23,7 @@ def handler(mocker):
 
     class MockRequest:
         def __init__(self, file_name):
-            with open(file_name) as f:
+            with open(file_name, encoding="UTF-8") as f:
                 self.text = f.read()
 
     mocker.patch.object(requests, 'get', MagicMock(side_effect=[MockRequest('sessions.xml'), MockRequest("speaker_events.xml")]))
@@ -40,7 +40,7 @@ def test_update_speakers(handler):
     w1 = result[0]
     assert w1.id == "1001"
     assert w1.name == "Investing in healthier cities: \"insuring\" prevention"
-    assert w1.description == "<p>The health insurance sector is engaged in the politics of pooling health risks while city mayors are in the politics of " \
+    assert w1.description.strip() == "<p>The health insurance sector is engaged in the politics of pooling health risks while city mayors are in the politics of " \
                              "managing cities. Most of the focus of the health insurance sector is around reducing the costs of treatment rather than " \
                              "prevention for better health and well-being with a subsequent reduced need for treatment. " \
                              "This session proposes to introduce promotive and preventive health into the politics of health insurance and thus encourage " \
@@ -52,8 +52,8 @@ def test_update_speakers(handler):
                              "beyond cities.</p><p>The full list of speakers will be announced shortly. </p>"
     assert w1.location == "Kursaal C"
     assert w1.code == "W1"
-    assert w1.start_time == "09:00"
-    assert w1.end_time == "11:00"
+    assert w1.start_time == 1507107600000
+    assert w1.end_time == 1507114800000
     assert w1.speakers == []
 
     w2 = result[1]
