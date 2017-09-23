@@ -13,6 +13,7 @@ def lambda_handler(event, context):
 
     soup = BeautifulSoup(requests.get("https://www.ehfg.org/xml-interface/speakers/").text, "html.parser")
     speakers = [Speaker(speaker) for speaker in soup.channel.find_all('item')]
+    speakers.sort(key=lambda speaker: speaker.full_name)
 
     s3.put_object(Bucket="ehfg-app", Key="speakers.json",
                   Body=(json.dumps([speaker.json() for speaker in speakers], indent=2).encode("utf-8")))
@@ -25,7 +26,7 @@ class Speaker:
         self.id = speaker.id.text
         self.first_name = speaker.firstname.text
         self.last_name = speaker.lastname.text
-        self.description = speaker.find("bio:encoded").text
+        self.description = speaker.find("bio:encoded").text.strip()
         self.image_url = speaker.imgpath.text or "http://www.ehfg.org/intranet/uploads/speakersdefaultperson.jpg"
         self.full_name = speaker.fullname.text
 
