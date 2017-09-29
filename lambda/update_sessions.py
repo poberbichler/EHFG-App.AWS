@@ -1,10 +1,10 @@
 import calendar
 import itertools
 import json
+import time
 
 import boto3
 import requests
-import time
 from bs4 import BeautifulSoup
 
 print('Loading function')
@@ -37,8 +37,9 @@ def lambda_handler(event, context):
             "sessions": [session.json() for session in sessions_with_speakers if session.day == day]
         }
 
-    s3.put_object(Bucket="ehfg-app", Key="sessions.json", Body=(json.dumps(result, indent=2).encode("utf-8")))
-    return sessions_with_speakers
+    result_json = json.dumps(result, indent=2)
+    s3.put_object(Bucket="ehfg-app", Key="sessions.json", Body=(result_json.encode("utf-8")))
+    return result_json
 
 
 class Session:

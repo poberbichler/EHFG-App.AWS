@@ -11,14 +11,24 @@ s3 = boto3.client('s3')
 def lambda_handler(event, context):
     print(f"event: [{event}], context: [{context}]")
 
+    event_soup = BeautifulSoup(requests.get("https://www.ehfg.org/xml-interface/speaker-events/").text, "html.parser")
+    event_speakers = set([id.text for id in event_soup.find_all('speakerid')])
+
     soup = BeautifulSoup(requests.get("https://www.ehfg.org/xml-interface/speakers/").text, "html.parser")
-    speakers = [Speaker(speaker) for speaker in soup.channel.find_all('item')]
+    speakers = [Speaker(speaker) for speaker in soup.channel.find_all('item') if speaker.id.text in event_speakers]
+
+    filtered = [speaker.fullname.text for speaker in soup.find_all('item') if speaker.id.text not in event_speakers]
+    print(f"filtered speakers - {len(filtered)}")
+    print(f"valid speakers    - {len(speakers)}")
+
     speakers.sort(key=lambda speaker: speaker.full_name)
 
-    s3.put_object(Bucket="ehfg-app", Key="speakers.json",
-                  Body=(json.dumps([speaker.json() for speaker in speakers], indent=2).encode("utf-8")))
+    result = json.dumps([speaker.json() for speaker in speakers], indent=2)
 
-    return speakers
+    s3.put_object(Bucket="ehfg-app", Key="speakers.json",
+                  Body=(result.encode("utf-8")))
+
+    return result
 
 
 class Speaker:
