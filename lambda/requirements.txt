@@ -9,7 +9,7 @@ docutils==0.13.1
 idna==2.5
 jmespath==0.9.3
 packaging==16.8
-py==1.4.33
+py==1.10.0
 pyparsing==2.2.0
 pytest==3.1.0
 python-dateutil==2.6.0
