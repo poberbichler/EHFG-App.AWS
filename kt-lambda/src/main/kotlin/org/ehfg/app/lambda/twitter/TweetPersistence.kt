@@ -6,29 +6,14 @@ import java.util.*
 
 @Service
 class TweetPersistence(val s3Uploader: S3Uploader) {
-    fun persist(tweets: Deque<StoredTweet>, tweet: InputTweet): String {
-        tweets.addFirst(toStoredTweet(tweet))
+    fun persist(tweets: Deque<Tweet>, tweet: Tweet): String {
+        tweets.addFirst(tweet)
 
         if (tweet.retweetId != null) {
-            val retweet = tweets
-                .singleOrNull { it.id == tweet.retweetId }
-            retweet?.retweetedBy?.add(tweet.author.nickName)
+            tweets.single { it.id == tweet.retweetId }?.retweetedBy?.add(tweet.nickName)
         }
 
         this.s3Uploader.upload("tweets.json", tweets)
         return "ok"
-    }
-
-    private fun toStoredTweet(input: InputTweet): StoredTweet {
-        return StoredTweet(
-            id = input.id,
-            message = input.message,
-            timestamp = input.timestamp,
-            retweet = input.retweet,
-            retweetedBy = input.retweetedBy,
-            fullName = input.author.fullName,
-            nickName = input.author.nickName,
-            profileImage = input.author.profileImage,
-        )
     }
 }

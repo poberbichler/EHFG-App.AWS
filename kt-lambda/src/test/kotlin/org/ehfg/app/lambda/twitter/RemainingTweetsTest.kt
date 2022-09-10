@@ -10,26 +10,26 @@ import java.util.*
 internal class RemainingTweetsTest {
     @Test
     fun fetchLatest() {
-        assertThat(RemainingTweets.of(fetchTweets(), "834502125413605377"))
+        assertThat(RemainingTweets.of(fetchTweets(), "1182608763007713280"))
             .singleElement()
     }
 
     @Test
     fun fetchNone() {
-        assertThat(RemainingTweets.of(fetchTweets(), "835433245810503680"))
+        assertThat(RemainingTweets.of(fetchTweets(), "1182615793198080001"))
             .isEmpty()
     }
 
     @Test
     fun fetchFew() {
-        assertThat(RemainingTweets.of(fetchTweets(), "830516645642674176"))
+        assertThat(RemainingTweets.of(fetchTweets(), "1182562333383708672"))
             .hasSize(10)
     }
 
-    private fun fetchTweets(): Deque<StoredTweet> {
+    private fun fetchTweets(): Deque<Tweet> {
         return CommonConfig().objectMapper()
             .readValue(
                 ClassPathResource("sample-tweets.json").file,
-                object : TypeReference<LinkedList<StoredTweet>>() {})
+                object : TypeReference<LinkedList<Tweet>>() {})
     }
 }

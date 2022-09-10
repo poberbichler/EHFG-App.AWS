@@ -5,7 +5,7 @@ import java.util.*
 import java.util.function.Function
 
 @Component
-class TwitterFunctionality(
+class Twitter(
     val tweetFetcher: TweetFetcher,
     val tweetPersistence: TweetPersistence
 ) : Function<TweetInput, Any> {
@@ -23,7 +23,7 @@ class TwitterFunctionality(
         }
     }
 
-    private fun findByPage(tweets: Deque<StoredTweet>, pageId: Int) = TweetPage.of(tweets, pageId, PAGE_SIZE)
+    private fun findByPage(tweets: Deque<Tweet>, pageId: Int) = TweetPage.of(tweets, pageId, PAGE_SIZE)
 
-    private fun findNewerTweets(tweets: Deque<StoredTweet>, tweetId: String) = RemainingTweets.of(tweets, tweetId)
+    private fun findNewerTweets(tweets: Deque<Tweet>, tweetId: String) = RemainingTweets.of(tweets, tweetId)
 }

@@ -36,17 +36,18 @@ internal class TweetFetcherTest {
         val tweets = TweetFetcher(s3Client, CommonConfig().objectMapper()).fetchTweets()
         assertThat(tweets).hasSize(30)
         tweets
-            .single { it.id == "828691081424351233" }
+            .single { it.id == "1182363167533535237" }
             .also { tweet ->
                 assertThat(tweet).isNotNull
-                assertThat(tweet.id).isEqualTo("828691081424351233")
-                assertThat(tweet.fullName).isEqualTo("Lloyd Larcher")
-                assertThat(tweet.nickName).isEqualTo("Lloyd_16707")
-                assertThat(tweet.message).isEqualTo("RT @EU_eHealth: <span class=\"hashtag\">#eHealth</span> in Europe: 'Reality meets Reality' at <span class=\"hashtag\">#EHFG2016:</span> <a href=\"#\" onclick=\"window.open('http://bit.ly/2bLNWQQ', '_blank')\">bit.ly/2bLNWQQ</a> @GasteinForum   @peetso_terje https://t.c... ")
-                assertThat(tweet.profileImage).isEqualTo("http://pbs.twimg.com/profile_images/644521777234755585/uBK9YY_p_normal.jpg")
-                assertThat(tweet.timestamp).isEqualTo(1486413924000)
-                assertThat(tweet.retweet).isTrue
-                assertThat(tweet.retweetedBy).isEmpty()
+                assertThat(tweet.id).isEqualTo("1182363167533535237")
+                assertThat(tweet.fullName).isEqualTo("Future of AI")
+                assertThat(tweet.nickName).isEqualTo("future_of_AI")
+                assertThat(tweet.message).isEqualTo("How To Ensure Human Touch In Digital Healthcare Driven By Ai Solutions? https://t.co/RNM7BXZT5i #AI #healthcare… https://t.co/ZoWz7rihNM")
+                assertThat(tweet.formattedMesssage).isEqualTo("How To Ensure Human Touch In Digital Healthcare Driven By Ai Solutions? <a href=\"#\" onclick=\"window.open('https://buff.ly/2oteyOZ', '_blank')\">buff.ly/2oteyOZ</a> <span class=\"hashtag\">#AI</span> <span class=\"hashtag\">#healthcare</span>… <a href=\"#\" onclick=\"window.open('https://twitter.com/i/web/status/1182363167533535237', '_blank')\">twitter.com/i/web/status/1…</a>")
+                assertThat(tweet.profileImage).isEqualTo("https://pbs.twimg.com/profile_images/1047866034970140673/ZBhSks16_normal.jpg")
+                assertThat(tweet.timestamp).isEqualTo(1570739521000)
+                assertThat(tweet.retweet).isFalse
+                assertThat(tweet.retweetedBy).contains("DME_Jun")
             }
     }
 

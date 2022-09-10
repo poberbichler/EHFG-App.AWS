@@ -12,10 +12,10 @@ class TweetFetcher(
     val s3Client: S3Client,
     val objectMapper: ObjectMapper
 ) {
-    fun fetchTweets(): Deque<StoredTweet> {
+    fun fetchTweets(): Deque<Tweet> {
         return this.s3Client
             .getObject({ it.bucket("ehfg-app").key("tweets.json") }, ResponseTransformer.toBytes())
             .asUtf8String()
-            .run { objectMapper.readValue(this, object : TypeReference<LinkedList<StoredTweet>>() {}) }
+            .run { objectMapper.readValue(this, object : TypeReference<LinkedList<Tweet>>() {}) }
     }
 }

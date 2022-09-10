@@ -1,23 +1,24 @@
 package org.ehfg.app.lambda.twitter
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import java.util.*
 import kotlin.math.floor
 
 class TweetInput(
     val pageId: Int?,
     val tweetId: String?,
-    val tweet: InputTweet?
+    val tweet: Tweet?
 )
 
 class TweetPage(
-    val data: List<StoredTweet>,
+    val data: List<Tweet>,
     val currentPage: Int,
     val morePages: Boolean,
     val maxPages: Int,
     val currentHashtag: String
 ) {
     companion object {
-        fun of(tweets: Deque<StoredTweet>, pageId: Int, pageSize: Int = 20): TweetPage {
+        fun of(tweets: Deque<Tweet>, pageId: Int, pageSize: Int = 20): TweetPage {
             val pageCount = floor(tweets.size / pageSize.toFloat()).toInt()
             return TweetPage(
                 data = tweets.chunked(pageSize)[pageId],
@@ -32,36 +33,20 @@ class TweetPage(
 
 class RemainingTweets {
     companion object {
-        fun of(tweets: Deque<StoredTweet>, tweetId: String) = tweets.takeWhile { it.id != tweetId }
+        fun of(tweets: Deque<Tweet>, tweetId: String) = tweets.takeWhile { it.id != tweetId }
     }
 }
 
-data class InputTweet(
+@JsonIgnoreProperties("hashtag")
+data class Tweet(
     val id: String,
     val message: String,
+    val formattedMesssage: String,
     val timestamp: Long,
     val retweet: Boolean,
     val retweetedBy: MutableList<String>,
-    val author: Author,
+    val fullName: String,
+    val nickName: String,
+    val profileImage: String,
     val retweetId: String?
 )
-
-data class Author(
-    val id: String,
-    val fullName: String,
-    val nickName: String,
-    val profileImage: String,
-)
-
-data class StoredTweet(
-    val id: String,
-    val fullName: String,
-    val nickName: String,
-    val message: String,
-    val profileImage: String,
-    val timestamp: Long,
-    val retweet: Boolean,
-    val retweetedBy: MutableList<String>,
-) {
-
-}

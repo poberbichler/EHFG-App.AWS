@@ -34,7 +34,7 @@ internal class TweetPersistenceTest {
         s3Client.createBucket { it.bucket("ehfg-app") }
 
         val objectMapper = CommonConfig().objectMapper()
-        val tweet = objectMapper.readValue(ClassPathResource("sample-tweet.json").file, InputTweet::class.java)
+        val tweet = objectMapper.readValue(ClassPathResource("sample-tweet.json").file, Tweet::class.java)
 
         TweetPersistence(S3Uploader(asObjectProvider(s3Client), objectMapper))
             .persist(fetchTweets(), tweet)
@@ -45,11 +45,12 @@ internal class TweetPersistenceTest {
                 allTweets.first().also { tweet ->
                     assertThat(tweet).isNotNull
                     assertThat(tweet.id).isEqualTo("12345")
-                    assertThat(tweet.fullName).isEqualTo("EUPHA PHPP Section")
-                    assertThat(tweet.nickName).isEqualTo("EPH_PHPPsection")
-                    assertThat(tweet.message).isEqualTo("RT @GasteinForum: Our <span class=\"hashtag\">#EHFG2016</span> evaluation report is online. Which sectors attended the conference? Which sessions were the most... https:/… ")
-                    assertThat(tweet.profileImage).isEqualTo("http://pbs.twimg.com/profile_images/795946448085020672/Px0WN7XS_normal.jpg")
-                    assertThat(tweet.timestamp).isEqualTo(1488021382000)
+                    assertThat(tweet.fullName).isEqualTo("Dorli Kahr-Gottlieb")
+                    assertThat(tweet.nickName).isEqualTo("DorliKahr")
+                    assertThat(tweet.message).isEqualTo("Congratulations again, @BathTR!@GasteinForum is excited to support your important work! #tobaccocontrol #monitoring… https://t.co/UIlMQfUMoI")
+                    assertThat(tweet.formattedMesssage).isEqualTo("Congratulations again, @BathTR!@GasteinForum is excited to support your important work! <span class=\"hashtag\">#tobaccocontrol</span> <span class=\"hashtag\">#monitoring</span>… <a href=\"#\" onclick=\"window.open('https://twitter.com/i/web/status/1182602598597177344', '_blank')\">twitter.com/i/web/status/1…</a>")
+                    assertThat(tweet.profileImage).isEqualTo("https://pbs.twimg.com/profile_images/1109071236511031296/MBdJkZtL_normal.jpg")
+                    assertThat(tweet.timestamp).isEqualTo(1570796605000)
                     assertThat(tweet.retweet).isEqualTo(false)
                     assertThat(tweet.retweetedBy).isEmpty()
                 }
@@ -67,7 +68,7 @@ internal class TweetPersistenceTest {
         s3Client.createBucket { it.bucket("ehfg-app") }
 
         val objectMapper = CommonConfig().objectMapper()
-        val tweet = objectMapper.readValue(ClassPathResource("sample-retweet.json").file, InputTweet::class.java)
+        val tweet = objectMapper.readValue(ClassPathResource("sample-retweet.json").file, Tweet::class.java)
 
         TweetPersistence(S3Uploader(asObjectProvider(s3Client), objectMapper))
             .persist(fetchTweets(), tweet)
@@ -79,7 +80,7 @@ internal class TweetPersistenceTest {
                 assertThat(allTweets.first.retweet).isTrue
 
                 allTweets
-                    .single { it.id == "830939121619136512" }
+                    .single { it.id == "1182412016222457858" }
                     .also { retweetedTweet ->
                         assertThat(retweetedTweet).isNotNull
                         assertThat(retweetedTweet.retweetedBy).contains("the-bilb")
@@ -113,10 +114,10 @@ internal class TweetPersistenceTest {
         }
     }
 
-    private fun fetchTweets(): Deque<StoredTweet> {
+    private fun fetchTweets(): Deque<Tweet> {
         return CommonConfig().objectMapper()
             .readValue(
                 ClassPathResource("sample-tweets.json").file,
-                object : TypeReference<LinkedList<StoredTweet>>() {})
+                object : TypeReference<LinkedList<Tweet>>() {})
     }
 }

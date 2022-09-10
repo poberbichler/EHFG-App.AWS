@@ -38,10 +38,10 @@ internal class TweetPageTest {
         assertThat(page.morePages).isFalse
     }
 
-    private fun fetchTweets(): Deque<StoredTweet> {
+    private fun fetchTweets(): Deque<Tweet> {
         return CommonConfig().objectMapper()
             .readValue(
                 ClassPathResource("sample-tweets.json").file,
-                object : TypeReference<LinkedList<StoredTweet>>() {})
+                object : TypeReference<LinkedList<Tweet>>() {})
     }
 }
