@@ -33,7 +33,7 @@ internal class S3UploaderTest {
         s3Client.createBucket { it.bucket("ehfg-app") }
 
         val key = UUID.randomUUID().toString()
-        S3Uploader(asObjectProvider(s3Client), ObjectMapper())
+        S3Uploader(asObjectProvider(s3Client), CommonConfig().objectMapper())
             .upload(key, mapOf(Pair("Day 1", Day(description = "some desc", sessions = emptyList()))))
 
         val payloadInBucket = s3Client
