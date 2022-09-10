@@ -37,4 +37,10 @@ data class Speaker(
     val speakerid: String,
     val organisation: String,
     val image: String?
-)
+) {
+    val firstName: String
+        get() = speaker.split(",")[1].trim()
+
+    val lastName: String
+        get() = speaker.split(",")[0].trim()
+}
