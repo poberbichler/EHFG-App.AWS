@@ -19,6 +19,6 @@ class SpeakerUpdate(
 
         this.downloader.download()
             .run { speakerTransformer.transform(this) }
-            .run { uploader.upload("speakers-2022.json", this) }
+            .run { uploader.upload("speakers.json", this) }
     }
 }

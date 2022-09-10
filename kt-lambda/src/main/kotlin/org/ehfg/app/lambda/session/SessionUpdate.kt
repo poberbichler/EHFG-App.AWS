@@ -19,6 +19,6 @@ class SessionUpdate(
 
         this.downloader.download()
             .run { sessionTransformer.transform(this) }
-            .run { uploader.upload("sessions-2022.json", this) }
+            .run { uploader.upload("sessions.json", this) }
     }
 }
