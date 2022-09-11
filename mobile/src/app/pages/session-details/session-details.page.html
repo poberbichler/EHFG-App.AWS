@@ -17,14 +17,14 @@
   <ion-list>
     <ion-item>
       <ion-icon name="calendar" slot="start"></ion-icon>
-      <ion-label>Date</ion-label>
-      <ion-label slot="end">{{session.startTime}} - {{session.endTime}}</ion-label>
+      <ion-label>{{session.startTime | date:'EEEE, dd.MM.':'+2'}} <span class="date-spacer">⋅</span>{{session.startTime | date:'HH:mm':'+2'}}-{{session.endTime | date:'HH:mm':'+2'}}</ion-label>
+      <ion-note slot="end">Date</ion-note>
     </ion-item>
 
     <ion-item>
       <ion-icon name="pin" slot="start"></ion-icon>
-      <ion-label>Location</ion-label>
-      <ion-label slot="end">{{session.location}}</ion-label>
+      <ion-label>{{session.location}}</ion-label>
+      <ion-note slot="end">Location</ion-note>
     </ion-item>
 
     <ion-item *ngIf="session.favourite" (click)="toggleFavouriteSession()">
