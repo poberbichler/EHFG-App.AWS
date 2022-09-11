@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: 'twitter.page.html',
   styleUrls: ['twitter.page.scss']
 })
-export class Tab1Page {
+export class TwitterPage {
 
   constructor() {}
 

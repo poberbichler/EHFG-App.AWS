@@ -2,19 +2,17 @@ import { IonicModule } from '@ionic/angular';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab1Page } from './twitter.page';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import { TwitterPage } from './twitter.page';
 
-import { Tab1PageRoutingModule } from './twitter-routing.module';
+import { TwitterPageRoutingModule } from './twitter-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-    Tab1PageRoutingModule
+    TwitterPageRoutingModule
   ],
-  declarations: [Tab1Page]
+  declarations: [TwitterPage]
 })
 export class TwitterPageModule {}

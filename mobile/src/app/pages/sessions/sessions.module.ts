@@ -3,19 +3,17 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab2Page } from './sessions.page';
-import { ExploreContainerComponentModule } from '../../explore-container/explore-container.module';
+import { SessionsPage } from './sessions.page';
 
-import { Tab2PageRoutingModule } from './sessions-routing.module';
+import { SessionsPageRoutingModule } from './sessions-routing.module';
 
 @NgModule({
   imports: [
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
-    Tab2PageRoutingModule
+    SessionsPageRoutingModule
   ],
-  declarations: [Tab2Page]
+  declarations: [SessionsPage]
 })
 export class SessionsPageModule {}

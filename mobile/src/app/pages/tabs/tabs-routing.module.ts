@@ -20,16 +20,15 @@ const routes: Routes = [
         loadChildren: () => import('../speakers/speakers.module').then(m => m.SpeakersPageModule)
       },
       {
+        path: 'map',
+        loadChildren: () => import('../map/map.module').then(m => m.SpeakersPageModule)
+      },
+      {
         path: '',
         redirectTo: '/twitter',
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/twitter',
-    pathMatch: 'full'
   }
 ];
 

@@ -7,20 +7,19 @@
           <ion-list-header>Conference</ion-list-header>
 
           <ion-menu-toggle autoHide="false">
-            <!-- TODO ROUTER -->
-            <ion-item>
+            <ion-item routerLink="twitter" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" name="logo-twitter"></ion-icon>
               <ion-label>Twitter</ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item routerLink="sessions" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" name="calendar"></ion-icon>
               <ion-label>Sessions</ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item routerLink="speakers" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" name="people"></ion-icon>
               <ion-label>Speaker</ion-label>
             </ion-item>
-            <ion-item>
+            <ion-item routerLink="map" routerLinkActive="selected" routerDirection="root" detail="false">
               <ion-icon slot="start" name="map"></ion-icon>
               <ion-label>Map</ion-label>
             </ion-item>
