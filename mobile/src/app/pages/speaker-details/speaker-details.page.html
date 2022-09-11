@@ -21,12 +21,10 @@
     </p>
   </div>
 
-  <ion-list inset="true">
-    <ion-item-divider>
-      <ion-label>
-        Sessions
-      </ion-label>
-    </ion-item-divider>
+  <ion-list class="session-list" inset="true">
+    <ion-list-header color="light">
+      <ion-label>Sessions</ion-label>
+    </ion-list-header>
 
     <ion-item *ngFor="let session of sessions">
       <ion-label routerLink="/sessions/{{session.id}}">
