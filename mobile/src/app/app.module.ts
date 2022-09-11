@@ -9,7 +9,7 @@ import { IonicStorageModule } from "@ionic/storage-angular";
 import { CacheModule } from "ionic-cache";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { SessionData } from './providers/session-data';
+import { SpeakerData } from './providers/speaker-data';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +23,7 @@ import { SessionData } from './providers/session-data';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SessionData
+    SpeakerData
   ],
   bootstrap: [AppComponent],
 })

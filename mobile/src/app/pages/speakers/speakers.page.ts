@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { SpeakerData } from 'src/app/providers/speaker-data';
 
 @Component({
   selector: 'app-speakers',
@@ -7,6 +8,12 @@ import { Component } from '@angular/core';
 })
 export class SpeakersPage {
 
-  constructor() {}
+  constructor(private speakerData: SpeakerData) { }
 
+  speakers: any[] = [];
+
+  ionViewDidEnter() {
+    this.speakerData.getSpeakers()
+      .subscribe(speakers => this.speakers = speakers);
+  }
 }

@@ -6,6 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
+  <!-- TODO: search -->
+
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
@@ -13,5 +15,10 @@
     </ion-toolbar>
   </ion-header>
 
-  hello world speakers
+  <ion-list *ngFor="let speaker of speakers">
+    <ion-item >
+      <ion-label routerLink="/speakers/{{speaker.id}}">{{speaker.fullName}}</ion-label>
+    </ion-item>
+
+  </ion-list>
 </ion-content>
