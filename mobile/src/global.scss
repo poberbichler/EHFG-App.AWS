@@ -33,15 +33,12 @@ $border-color: #dedede;
   --ion-tab-bar-background: #0F61A6;
   --ion-tab-bar-color: #DDD;
   --ion-tab-bar-color-selected: #FFFFFF;
+  --ion-font-family: sailec;
 }
 
 @font-face {
   font-family: sailec;
   src: url('assets/fonts/Sailec.otf');
-}
-
-body ion-app.md {
-  font-family: sailec;
 }
 
 .detail-list {
