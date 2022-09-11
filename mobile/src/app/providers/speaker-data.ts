@@ -7,7 +7,6 @@ import { Speaker } from "../data/speaker";
 
 @Injectable()
 export class SpeakerData {
-
     constructor(
         private http: HttpClient,
         private cache: CacheService) { }
@@ -21,4 +20,10 @@ export class SpeakerData {
         return this.getSpeakers()
             .pipe(map(speakers => speakers.find(speaker => speaker.id == speakerId)));
     }
+    
+    getSpeakersByIds(speakerIds: string[]): Observable<Speaker[]> {
+        return this.getSpeakers()
+            .pipe(map(speakers => speakers.filter(speaker => speakerIds.indexOf(speaker.id) !== -1)));
+      }
+  
 }

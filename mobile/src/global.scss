@@ -45,7 +45,10 @@ body ion-app.md {
 }
 
 .detail-list {
-  border: 1px solid $border-color;
+  padding: 0;
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
 }
 
 /* by default, hide the cropped logo */

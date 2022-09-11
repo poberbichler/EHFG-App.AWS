@@ -13,7 +13,17 @@ const routes: Routes = [
       },
       {
         path: 'sessions',
-        loadChildren: () => import('../sessions/sessions.module').then(m => m.SessionsPageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../sessions/sessions.module').then(m => m.SessionsPageModule)
+          },
+          {
+            path: ':sessionId',
+            loadChildren: () => import('../session-details/session-details.module').then(m => m.SessionsDetailsPageModule)
+            
+          }
+        ]
       },
       {
         path: 'speakers',

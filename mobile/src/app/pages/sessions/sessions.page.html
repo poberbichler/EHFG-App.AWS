@@ -20,7 +20,7 @@
       </ion-item-divider>
 
       <ion-item *ngFor="let session of dayMap[day].sessions" lines="full">
-        <ion-label>{{session.code}} - {{session.name}}</ion-label>
+        <ion-label routerLink="/sessions/{{session.id}}">{{session.code}} - {{session.name}}</ion-label>
       </ion-item>
     </div>
   </ion-item-group>
