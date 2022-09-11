@@ -24,3 +24,40 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+$border-color: #dedede;
+
+@font-face {
+  font-family: sailec;
+  src: url('../assets/fonts/Sailec.otf');
+}
+
+body ion-app.md {
+  font-family: sailec;
+}
+
+.detail-list {
+  border: 1px solid $border-color;
+}
+
+/* by default, hide the cropped logo */
+.navbar-logo-cropped {
+  display: none;
+}
+
+.navbar-logo {
+  height: 42px;
+  padding-top: 5px;
+}
+
+.platform-ios {
+  .navbar-logo {
+    display: none;
+  }
+
+  /* only show cropped logo on ios */
+  .navbar-logo-cropped {
+    display: inline;
+    height: 32px;
+  }
+}
