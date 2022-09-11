@@ -17,7 +17,17 @@ const routes: Routes = [
       },
       {
         path: 'speakers',
-        loadChildren: () => import('../speakers/speakers.module').then(m => m.SpeakersPageModule)
+        children: [
+          {
+            path: '',
+            loadChildren: () => import('../speakers/speakers.module').then(m => m.SpeakersPageModule)
+          },
+          {
+            path: ':speakerId',
+            loadChildren: () => import('../speaker-details/speaker-details.module').then(m => m.SpeakerDetailsPageModule)
+          }
+
+        ]
       },
       {
         path: 'map',

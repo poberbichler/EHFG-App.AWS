@@ -15,8 +15,8 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-list *ngFor="let speaker of speakers">
-    <ion-item >
+  <ion-list>
+    <ion-item  *ngFor="let speaker of speakers">
       <ion-label routerLink="/speakers/{{speaker.id}}">{{speaker.fullName}}</ion-label>
     </ion-item>
 

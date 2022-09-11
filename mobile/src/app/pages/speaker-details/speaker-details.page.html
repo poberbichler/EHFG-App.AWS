@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      {{speaker.fullName}}
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">{{speaker.fullName}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  
+  <div class="ion-padding">
+    <img src="{{speaker.imageUrl}}" />
+    <p>
+      {{speaker.description}}
+    </p>
+  </div>
+
+  <ion-list inset="true">
+    <ion-item-divider>
+      <ion-label>
+        Sessions
+      </ion-label>
+    </ion-item-divider>
+
+    <ion-item *ngFor="let session of sessions">
+      <ion-label routerLink="/sessions/{{session.id}}">
+        {{session.code}} - {{session.name}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

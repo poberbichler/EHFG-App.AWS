@@ -10,6 +10,7 @@ import { CacheModule } from "ionic-cache";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SpeakerData } from './providers/speaker-data';
+import { SessionData } from './providers/session-data';
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,7 +24,8 @@ import { SpeakerData } from './providers/speaker-data';
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    SpeakerData
+    SpeakerData,
+    SessionData
   ],
   bootstrap: [AppComponent],
 })
