@@ -13,5 +13,43 @@
     </ion-toolbar>
   </ion-header>
 
-  hello world
+  <ion-card class="hashtag">
+    <ion-card-content>
+      <h1>{{currentHashtag}}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngFor="let tweet of tweets">
+    <ion-card>
+      <ion-item>
+        <ion-avatar item-left>
+          <img [src]="tweet.profileImage">
+        </ion-avatar>
+        <h2>{{tweet.fullName}}
+          <span></span>
+          <span class="twitter-date">{{tweet.timestamp}}</span>
+        </h2>
+        <p>@{{tweet.nickName}}</p>
+      </ion-item>
+
+      <ion-card-content>
+        <p [innerHTML]="tweet.formattedMesssage | trustHtml"></p>
+      </ion-card-content>
+
+      <p [hidden]="tweet.retweetedBy.length == 0 || !hideRetweets" class="retweets" [ngClass]="{expanded: isExpanded}"
+        (click)="isExpanded = !isExpanded">
+        <span>
+          <ion-icon class="retweet-icon" name="repeat"></ion-icon>
+          <span style="padding: 0 5px 0 2px;">({{tweet.retweetedBy.length}})</span>
+          <span>{{tweet.retweetedBy.join(', ')}}</span>
+        </span>
+      </p>
+    </ion-card>
+
+  </div>
+
+  <ion-infinite-scroll (ionInfinite)="loadData($event)">
+    <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Loading more data...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

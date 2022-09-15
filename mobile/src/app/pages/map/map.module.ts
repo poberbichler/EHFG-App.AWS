@@ -17,4 +17,4 @@ import { MapPageRoutingModule } from './map-routing.module';
   ],
   declarations: [MapPage]
 })
-export class SpeakersPageModule {}
+export class MapPageModule {}
