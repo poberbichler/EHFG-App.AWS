@@ -5,7 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { TwitterPage } from './twitter.page';
 
 import { TwitterPageRoutingModule } from './twitter-routing.module';
-import { TrustHtmlPipe } from 'src/components/trust-html/trust-html.pipe';
+import { TrustHtmlPipe } from 'src/app/components/trust-html/trust-html.pipe';
+import { TwitterTimestampPipe } from './twitter.timestamp.pipe';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { TrustHtmlPipe } from 'src/components/trust-html/trust-html.pipe';
   ],
   declarations: [
     TwitterPage,
-    TrustHtmlPipe
+    TrustHtmlPipe,
+    TwitterTimestampPipe
   ]
 })
 export class TwitterPageModule {}
