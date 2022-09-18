@@ -9,7 +9,24 @@ import { Router } from '@angular/router';
 export class AppComponent {
   constructor(private router: Router) {}
 
-    hideRetweets: boolean = true;
+  hideRetweets: boolean = true;
+  
+  readonly mapCategories = [{
+    "name": "Venues",
+    "cssClass": "",
+    "imageUrl": "",
+    "toggled": true
+  }, {
+    "name": "Hotels",
+    "cssClass": "warning",
+    "imageUrl": "",
+    "toggled": true
+  }, {
+    "name": "Suggested Restaurants",
+    "cssClass": "success",
+    "imageUrl": "",
+    "toggled": true
+  }];
 
   showRetweetsChanged(event: CustomEvent) {
     this.hideRetweets = event.detail.value;
@@ -18,5 +35,14 @@ export class AppComponent {
 
   get tweetPageActive() {
     return this.router.url === '/twitter';
+  }
+
+  get mapPageActive() {
+    return this.router.url === '/map';
+  }
+
+  categoryToggleChanged(event: CustomEvent) {
+    console.log(event);
+    window.dispatchEvent(new CustomEvent('map:category-changed', {detail: event}));
   }
 }

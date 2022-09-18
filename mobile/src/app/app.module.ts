@@ -13,6 +13,8 @@ import { SpeakerData } from './providers/speaker-data';
 import { SessionData } from './providers/session-data';
 import { TwitterData } from './providers/twitter-data';
 import { PointData } from './providers/point-data';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { PointData } from './providers/point-data';
     IonicStorageModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
+    CommonModule,
+    FormsModule
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

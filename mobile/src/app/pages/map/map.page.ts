@@ -18,9 +18,37 @@ export class MapPage implements OnInit {
     private modalController: ModalController) { }
 
   private markers: any[] = [];
+  private hiddenMarkers: any[] = [];
+
+  private map: GoogleMap;
 
   ngOnInit(): void {
-    console.log('TODO: susbcribe to event bus for marker visbility...')
+    // wtf, this actually works
+    window.addEventListener('map:category-changed', (event: CustomEvent) => {
+      if (event.detail.toggled) {
+        let markersToAdd = this.hiddenMarkers
+          .filter(marker => {
+            return marker.category.name === event.detail.name
+          });
+
+          markersToAdd.forEach(marker => {
+            this.map.addMarker({
+              coordinate: { lat: marker.coordinate.latitude, lng: marker.coordinate.longitude },
+              iconUrl: `assets/img/markers/${marker.category.cssClass ? marker.category.cssClass + '-' : ''}marker.png`
+            }).then(markerId => this.markers.push({ ...marker, markerId: markerId,  }))
+          });
+      } else {
+        let markersToRemove = this.markers
+          .filter(marker => marker.category.name === event.detail.name);
+        
+        if (markersToRemove.length !== 0) {
+          this.map.removeMarkers(markersToRemove.map(marker => marker.markerId));
+        }
+
+        this.hiddenMarkers.push(...markersToRemove);
+        this.markers = this.markers.filter(marker => marker.category.name !== event.detail.name);
+      }
+    });
   }
 
   ionViewDidEnter(): void {
@@ -40,7 +68,9 @@ export class MapPage implements OnInit {
       element: document.getElementById('map'),
     };
 
-    const map = GoogleMap.create(mapOptions).then(map => {
+    GoogleMap.create(mapOptions).then(map => {
+      this.map = map;
+
       map.setOnMarkerClickListener(marker => {
         this.modalController.create({
           component: MapModalPage,
@@ -62,7 +92,7 @@ export class MapPage implements OnInit {
           };
 
           map.addMarker(data)
-          .then(markerId => this.markers.push({markerId: markerId, ...point}));
+            .then(markerId => this.markers.push({ markerId: markerId, ...point }));
         });
       });
     });

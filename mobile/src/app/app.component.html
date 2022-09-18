@@ -41,6 +41,20 @@
             </ion-item>
           </ion-radio-group>
         </ion-list>
+
+        <ion-list [hidden]="!mapPageActive">
+          <ion-list-header>
+            Map Categories
+          </ion-list-header>
+
+          <ion-item *ngFor="let category of mapCategories">
+            <ion-label>{{category.name}}</ion-label>
+            <ion-toggle [(ngModel)]="category.toggled"
+                        (ionChange)="categoryToggleChanged(category)"
+                        color="{{category.cssClass}}">
+            </ion-toggle>
+          </ion-item>
+        </ion-list>
       </ion-content>
     </ion-menu>
 
