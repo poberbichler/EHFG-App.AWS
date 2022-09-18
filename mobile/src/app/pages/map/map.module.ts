@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { MapPage } from './map.page';
 
 import { MapPageRoutingModule } from './map-routing.module';
+import { TrustHtmlPipe } from 'src/app/components/trust-html/trust-html.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +16,8 @@ import { MapPageRoutingModule } from './map-routing.module';
     RouterModule.forChild([{ path: '', component: MapPage }]),
     MapPageRoutingModule,
   ],
-  declarations: [MapPage]
+  declarations: [
+    MapPage
+  ]
 })
 export class MapPageModule {}

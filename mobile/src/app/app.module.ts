@@ -16,7 +16,7 @@ import { PointData } from './providers/point-data';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule, 
@@ -24,7 +24,7 @@ import { PointData } from './providers/point-data';
     CacheModule.forRoot(),
     IonicStorageModule.forRoot(),
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
