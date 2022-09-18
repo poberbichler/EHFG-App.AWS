@@ -24,7 +24,7 @@
       <ion-item *ngFor="let session of dayMap[day].sessions" lines="full">
         <ion-label class="session-item" routerLink="/sessions/{{session.id}}">
           <h2>{{session.code}} - {{session.name}}</h2>
-          <p>{{session.location}}: {{session.startTime | date:'HH:mm':'+2' }} - {{session.endTime | date:'HH:mm':'+2'}}</p>
+          <p>{{session.startTime | date:'HH:mm':'+2' }} - {{session.endTime | date:'HH:mm':'+2'}}: {{session.location}}</p>
         </ion-label>
       </ion-item>
     </div>
