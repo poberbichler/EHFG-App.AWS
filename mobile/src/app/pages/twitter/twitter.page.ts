@@ -13,12 +13,15 @@ export class TwitterPage {
   tweets: any[];
   tweetData: any;
 
-  hideRetweets = true;
+  hideRetweets: boolean = true;
 
   ngOnInit(): void {
     window.addEventListener('twitter:show-retweets', (event: CustomEvent) => {
       this.hideRetweets = event.detail.value;
+      console.log('hideRetweet is now', this.hideRetweets);
     })
+
+    console.log('hideRetweet is now', this.hideRetweets);
       
     this.twitterData.getInitialTweets().subscribe(tweetData => {
       this.tweets = tweetData.data;

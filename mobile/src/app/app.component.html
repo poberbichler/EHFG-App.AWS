@@ -26,7 +26,7 @@
           </ion-menu-toggle>
         </ion-list>
 
-        <ion-list>
+        <ion-list [hidden]="!tweetPageActive">
           <ion-radio-group value="true" (ionChange)="showRetweetsChanged($event)">
             <ion-list-header>Twitter</ion-list-header>
 
