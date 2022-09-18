@@ -17,12 +17,12 @@
 <ion-content [fullscreen]="true">
   <ion-item-group>
     <div *ngFor="let day of days">
-      <ion-item-divider color="light" [hidden]="dayMap[day].hidden">
+      <ion-item-divider sticky color="light" [hidden]="dayMap[day].hidden" class="day-header">
         <ion-label>{{day}}</ion-label>
       </ion-item-divider>
 
       <ion-item *ngFor="let session of dayMap[day].sessions" lines="full">
-        <ion-label routerLink="/sessions/{{session.id}}">
+        <ion-label class="session-item" routerLink="/sessions/{{session.id}}">
           <h2>{{session.code}} - {{session.name}}</h2>
           <p>{{session.location}}: {{session.startTime | date:'HH:mm':'+2' }} - {{session.endTime | date:'HH:mm':'+2'}}</p>
         </ion-label>

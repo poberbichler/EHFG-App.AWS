@@ -30,11 +30,11 @@ $border-color: #dedede;
 :root {
   --ion-toolbar-background: #0F61A6;
   --ion-toolbar-color: #FFFFFF;
-  
+
   --ion-tab-bar-background: #0F61A6;
   --ion-tab-bar-color: #DDD;
   --ion-tab-bar-color-selected: #FFFFFF;
-  
+
   --ion-font-family: sailec;
 }
 
@@ -48,6 +48,12 @@ $border-color: #dedede;
   border-width: 1px;
   border-style: solid;
   border-color: var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, rgba(0, 0, 0, 0.13))));
+
+  ion-list-header.ios {
+    ion-label {
+      margin-top: 8px;
+    }
+  }
 }
 
 /* by default, hide the cropped logo */

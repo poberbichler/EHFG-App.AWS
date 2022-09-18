@@ -2,4 +2,21 @@ ion-card.tweet {
     h2 {
         font-size: 20px;
     }
+
+    ion-note.ios {
+        font-size: 11px;
+    }
+}
+
+ion-card.tweet.ios {
+    border: 1px solid lightgray;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+ion-card.hashtag {
+    ion-card-header.ios {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
 }
