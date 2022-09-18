@@ -6,12 +6,21 @@ ion-card.tweet {
     ion-note.ios {
         font-size: 11px;
     }
-}
 
-ion-card.tweet.ios {
-    border: 1px solid lightgray;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    ion-card-content.retweet {
+        padding-top: 5px;
+        padding-bottom: 5px;
+    }
+
+    .ios {
+        border: 1px solid lightgray;
+        margin-top: 4px;
+        margin-bottom: 4px;
+    }
+
+    ion-item.tweet-text ion-label{
+        margin-bottom: 5px;
+    }
 }
 
 ion-card.hashtag {

@@ -7,13 +7,19 @@ import { TwitterData } from 'src/app/providers/twitter-data';
   styleUrls: ['twitter.page.scss']
 })
 export class TwitterPage {
-  
-  constructor(private twitterData: TwitterData) {}
-  
+
+  constructor(private twitterData: TwitterData) { }
+
   tweets: any[];
   tweetData: any;
-  
+
+  hideRetweets = true;
+
   ngOnInit(): void {
+    window.addEventListener('twitter:show-retweets', (event: CustomEvent) => {
+      this.hideRetweets = event.detail.value;
+    })
+      
     this.twitterData.getInitialTweets().subscribe(tweetData => {
       this.tweets = tweetData.data;
       this.tweetData = tweetData;
@@ -45,7 +51,7 @@ export class TwitterPage {
   }
 
   get currentHashtag(): string {
-    if(this.tweetData) {
+    if (this.tweetData) {
       return this.tweetData.currentHashtag;
     }
 

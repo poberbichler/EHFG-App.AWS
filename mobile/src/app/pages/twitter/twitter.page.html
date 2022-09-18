@@ -25,35 +25,37 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
 
-  <div *ngFor="let tweet of tweets" class="app-tweet">
-    <ion-card class="tweet">
-        <ion-item color="light" lines="full">
-          <ion-avatar slot="start">
-            <img [src]="tweet.profileImage"/>
-          </ion-avatar>
+  <div *ngFor="let tweet of tweets">
+    <ion-card class="tweet" [hidden]="tweet.retweet && hideRetweets">
+      <ion-item color="light" lines="full">
+        <ion-avatar slot="start">
+          <img [src]="tweet.profileImage" />
+        </ion-avatar>
 
+        <ion-label>
+          <h2>{{tweet.fullName}}</h2>
+          <p>@{{tweet.nickName}}</p>
+        </ion-label>
+
+        <ion-note slot="end">
+          {{tweet.timestamp | twitterTimestamp}}
+        </ion-note>
+      </ion-item>
+
+      <ion-item lines="full" class="tweet-text">
+        <ion-label class="ion-text-wrap">
+          <p [innerHTML]="tweet.formattedMesssage | trustHtml"></p>
+        </ion-label>
+      </ion-item>
+
+      <ion-card-content class="retweet" [hidden]="tweet.retweetedBy.length == 0 || !hideRetweets">
+        <ion-row>
+          <ion-icon name="repeat-outline" style="padding-top: 3px; margin-right: 5px;"></ion-icon>
           <ion-label>
-            <h2>{{tweet.fullName}}</h2>
-            <p>@{{tweet.nickName}}</p>
+            <p>({{tweet.retweetedBy.length}}) {{tweet.retweetedBy.join(', ')}}</p>
           </ion-label>
-
-          <ion-note slot="end">
-            {{tweet.timestamp | twitterTimestamp}}
-          </ion-note>
-        </ion-item>
-
-      <ion-card-content>
-        <p [innerHTML]="tweet.formattedMesssage | trustHtml"></p>
+        </ion-row>
       </ion-card-content>
-
-      <p [hidden]="tweet.retweetedBy.length == 0 || !hideRetweets" class="retweets" [ngClass]="{expanded: isExpanded}"
-        (click)="isExpanded = !isExpanded">
-        <span>
-          <ion-icon class="retweet-icon" name="repeat"></ion-icon>
-          <span style="padding: 0 5px 0 2px;">({{tweet.retweetedBy.length}})</span>
-          <span>{{tweet.retweetedBy.join(', ')}}</span>
-        </span>
-      </p>
     </ion-card>
 
   </div>
