@@ -39,7 +39,7 @@ internal class TweetPersistenceTest {
         TweetPersistence(S3Uploader(asObjectProvider(s3Client), objectMapper))
             .persist(fetchTweets(), tweet)
 
-        TweetFetcher(s3Client, objectMapper).fetchTweets()
+        TweetFetcher(asObjectProvider(s3Client), objectMapper).fetchTweets()
             .also { allTweets ->
                 assertThat(allTweets).hasSize(31)
                 allTweets.first().also { tweet ->
@@ -73,7 +73,7 @@ internal class TweetPersistenceTest {
         TweetPersistence(S3Uploader(asObjectProvider(s3Client), objectMapper))
             .persist(fetchTweets(), tweet)
 
-        TweetFetcher(s3Client, objectMapper).fetchTweets()
+        TweetFetcher(asObjectProvider(s3Client), objectMapper).fetchTweets()
             .also { allTweets ->
                 assertThat(allTweets).hasSize(31)
 

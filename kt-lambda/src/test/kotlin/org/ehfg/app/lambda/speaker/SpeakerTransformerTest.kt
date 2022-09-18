@@ -51,6 +51,9 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.fullName).isEqualTo("Silvana Di Sabatino")
                         assertThat(speaker.imageUrl).isEqualTo("default")
                     }
+
+                assertThat(result).isSortedAccordingTo(Comparator.comparing { it.fullName })
+                assertThat(result.first().fullName).startsWith("A")
             }
     }
 }

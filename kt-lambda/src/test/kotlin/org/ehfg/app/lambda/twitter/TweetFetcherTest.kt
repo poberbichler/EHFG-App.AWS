@@ -3,6 +3,7 @@ package org.ehfg.app.lambda.twitter
 import org.assertj.core.api.Assertions.assertThat
 import org.ehfg.app.lambda.common.CommonConfig
 import org.junit.jupiter.api.Test
+import org.springframework.beans.factory.ObjectProvider
 import org.springframework.core.io.ClassPathResource
 import org.testcontainers.containers.localstack.LocalStackContainer
 import org.testcontainers.junit.jupiter.Container
@@ -33,7 +34,7 @@ internal class TweetFetcherTest {
             ClassPathResource("sample-tweets.json").file.toPath()
         )
 
-        val tweets = TweetFetcher(s3Client, CommonConfig().objectMapper()).fetchTweets()
+        val tweets = TweetFetcher(asObjectProvider(s3Client), CommonConfig().objectMapper()).fetchTweets()
         assertThat(tweets).hasSize(30)
         tweets
             .single { it.id == "1182363167533535237" }
@@ -58,4 +59,22 @@ internal class TweetFetcherTest {
                 localStackContainer.secretKey
             )
         )
+
+    private fun asObjectProvider(s3Client: S3Client) = object : ObjectProvider<S3Client> {
+        override fun getObject(vararg args: Any?): S3Client {
+            return s3Client;
+        }
+
+        override fun getObject(): S3Client {
+            return s3Client;
+        }
+
+        override fun getIfAvailable(): S3Client {
+            return s3Client;
+        }
+
+        override fun getIfUnique(): S3Client {
+            return s3Client;
+        }
+    }
 }

@@ -17,6 +17,7 @@ class SpeakerTransformer {
             .flatMap { it.speakers }
             .map { toSpeaker(it) }
             .distinctBy { it.id }
+            .sortedBy { it.fullName }
     }
 
     private fun toSpeaker(it: Speaker) = EventSpeaker(
