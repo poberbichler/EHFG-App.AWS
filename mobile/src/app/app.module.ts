@@ -12,6 +12,7 @@ import { AppComponent } from './app.component';
 import { SpeakerData } from './providers/speaker-data';
 import { SessionData } from './providers/session-data';
 import { TwitterData } from './providers/twitter-data';
+import { PointData } from './providers/point-data';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { TwitterData } from './providers/twitter-data';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     SpeakerData,
     SessionData,
-    TwitterData
+    TwitterData,
+    PointData
   ],
   bootstrap: [AppComponent],
 })
