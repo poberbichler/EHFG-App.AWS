@@ -14,9 +14,9 @@
   </ion-header>
 
   <ion-card class="hashtag">
-    <ion-card-content>
-      <h1>{{currentHashtag}}</h1>
-    </ion-card-content>
+    <ion-card-header>
+      <ion-card-title>{{currentHashtag}}</ion-card-title>
+    </ion-card-header>
   </ion-card>
 
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
@@ -24,19 +24,21 @@
   </ion-refresher>
 
   <div *ngFor="let tweet of tweets" class="app-tweet">
-    <ion-card>
-      <ion-card-header type="light">
-        <ion-card-title>
-          <ion-avatar>
-            <img [src]="tweet.profileImage">
+    <ion-card class="tweet">
+        <ion-item color="light" lines="full">
+          <ion-avatar slot="start">
+            <img [src]="tweet.profileImage"/>
           </ion-avatar>
-          {{tweet.fullName}}
-        </ion-card-title>
-        <ion-card-subtitle>
-          <span>@{{tweet.nickName}}</span>
-          <span class="twitter-timestamp">{{tweet.timestamp | twitterTimestamp}}</span>
-        </ion-card-subtitle>
-      </ion-card-header>
+
+          <ion-label>
+            <h2>{{tweet.fullName}}</h2>
+            <p>@{{tweet.nickName}}</p>
+          </ion-label>
+
+          <ion-note slot="end">
+            {{tweet.timestamp | twitterTimestamp}}
+          </ion-note>
+        </ion-item>
 
       <ion-card-content>
         <p [innerHTML]="tweet.formattedMesssage | trustHtml"></p>

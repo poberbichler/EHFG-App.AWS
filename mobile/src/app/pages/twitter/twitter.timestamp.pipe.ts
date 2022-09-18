@@ -28,7 +28,7 @@ export class TwitterTimestampPipe implements PipeTransform {
       return "" + value + "h";
     }
 
-    return new DatePipe('de-DE').transform(this.getUtcTimeFor(input), 'MMM d, HH:mm');
+    return new DatePipe("en-US").transform(this.getUtcTimeFor(input), 'MMM d, HH:mm');
   }
 
   // TODO: revisit this mess...
