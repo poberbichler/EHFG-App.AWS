@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { CacheService } from 'ionic-cache';
 
 @Component({
   selector: 'app-root',
@@ -7,10 +8,12 @@ import { Router } from '@angular/router';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private router: Router) {}
+  constructor(private router: Router, private cacheService: CacheService) {
+    this.cacheService.setDefaultTTL(60 * 60); // 1 hour
+  }
 
   hideRetweets: boolean = true;
-  
+
   readonly mapCategories = [{
     "name": "Venues",
     "cssClass": "",
@@ -30,7 +33,7 @@ export class AppComponent {
 
   showRetweetsChanged(event: CustomEvent) {
     this.hideRetweets = event.detail.value;
-    window.dispatchEvent(new CustomEvent('twitter:show-retweets', {detail: {value: this.hideRetweets}}));
+    window.dispatchEvent(new CustomEvent('twitter:show-retweets', { detail: { value: this.hideRetweets } }));
   }
 
   get tweetPageActive() {
@@ -42,7 +45,10 @@ export class AppComponent {
   }
 
   categoryToggleChanged(event: CustomEvent) {
-    console.log(event);
-    window.dispatchEvent(new CustomEvent('map:category-changed', {detail: event}));
+    window.dispatchEvent(new CustomEvent('map:category-changed', { detail: event }));
+  }
+
+  resetData(): void {
+    this.cacheService.clearAll().then(() => location.reload());
   }
 }
