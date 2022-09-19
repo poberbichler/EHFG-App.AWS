@@ -17,16 +17,25 @@ ion-card.tweet {
         margin-top: 4px;
         margin-bottom: 4px;
     }
-    
 
-    ion-item.tweet-text ion-label{
+
+    ion-item.tweet-text ion-label {
         margin-bottom: 5px;
+    }
+
+    h2 {
+        font-size: 16px;
     }
 }
 
 ion-card.hashtag {
+    &.ios {
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
     ion-card-header.ios {
         padding-top: 10px;
-        padding-bottom: 10px;
+        padding-bottom: 0;
     }
 }
