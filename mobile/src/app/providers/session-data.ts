@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { ConferenceDay } from "../data/conferenceday";
 import { Speaker } from "../data/speaker";
 import { Session } from "../data/session";
-import { map, mergeMap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { Storage } from "@ionic/storage-angular";
 
 
@@ -21,9 +21,8 @@ export class SessionData {
     getSessions(): Observable<Map<string, ConferenceDay>> {
         return this.cache.loadFromObservable("sessions",
             this.http.get("https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod/sessions"))
-            .pipe(map(data => {
+            .pipe(tap(data => {
                 this.updateFavouriteSessions(data)
-                return data;
             }));
     }
 
@@ -48,7 +47,6 @@ export class SessionData {
         });
     }
 
-    /* why is this needed? */
     private updateFavouriteSessions(data: Map<string, ConferenceDay>): void {
         this.getFavouriteSessions().then(favouriteSessions => {
             Object.keys(data).map(key => data[key].sessions)

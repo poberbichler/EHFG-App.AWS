@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ConferenceDay } from 'src/app/data/conferenceday';
 import { Session } from 'src/app/data/session';
 import { Speaker } from 'src/app/data/speaker';
 import { SessionData } from 'src/app/providers/session-data';
@@ -25,11 +24,13 @@ export class SessionDetailsPage {
     this.sessionData.getSessionById(this.route.snapshot.paramMap.get('sessionId'))
       .subscribe(session => {
         this.session = session;
-        this.speakerData.getSpeakersByIds(this.session.speakers).subscribe(speakers => this.speakers = speakers);
+        this.speakerData.getSpeakersByIds(this.session.speakers)
+          .subscribe(speakers => this.speakers = speakers);
       });
   }
 
   toggleFavouriteSession(): void {
+    this.session.favourite = !this.session.favourite;
     this.sessionData.toggleFavouriteSession(this.session.id)
       .then(result => this.session.favourite = result);
   }
