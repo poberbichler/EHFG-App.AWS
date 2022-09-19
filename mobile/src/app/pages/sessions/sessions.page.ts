@@ -18,7 +18,6 @@ export class SessionsPage implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    console.log('ngOnInit');
     this.sessionData.getSessions().subscribe(data => {
       this.dayMap = data;
       this.days = Object.keys(data);
@@ -26,16 +25,13 @@ export class SessionsPage implements OnInit {
   }
 
   updateSessions(): void {
-    console.log('showAllSessions', this.showAllSessions);
     if (this.showAllSessions == 'true') {
-      console.log('showing all');
       Object.keys(this.dayMap).forEach(key => {
         this.dayMap[key].hidden = false;
       });
     }
 
     else {
-      console.log('only favs');
       Object.keys(this.dayMap).forEach(key => {
         let day = this.dayMap[key];
 

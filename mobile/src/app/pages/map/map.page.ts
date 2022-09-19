@@ -23,34 +23,6 @@ export class MapPage implements OnInit {
   private map: GoogleMap;
 
   ngOnInit(): void {
-    window.addEventListener('map:category-changed', (event: CustomEvent) => {
-      if (event.detail.toggled) {
-        let markersToAdd = this.hiddenMarkers
-          .filter(marker => {
-            return marker.category.name === event.detail.name
-          });
-
-          markersToAdd.forEach(marker => {
-            this.map.addMarker({
-              coordinate: { lat: marker.coordinate.latitude, lng: marker.coordinate.longitude },
-              iconUrl: `assets/img/markers/${marker.category.cssClass ? marker.category.cssClass + '-' : ''}marker.png`
-            }).then(markerId => this.markers.push({ ...marker, markerId: markerId,  }))
-          });
-      } else {
-        let markersToRemove = this.markers
-          .filter(marker => marker.category.name === event.detail.name);
-        
-        if (markersToRemove.length !== 0) {
-          this.map.removeMarkers(markersToRemove.map(marker => marker.markerId));
-        }
-
-        this.hiddenMarkers.push(...markersToRemove);
-        this.markers = this.markers.filter(marker => marker.category.name !== event.detail.name);
-      }
-    });
-  }
-
-  ionViewDidEnter(): void {
     const mapConfig = {
       center: {
         lat: 47.170329,
@@ -94,6 +66,32 @@ export class MapPage implements OnInit {
             .then(markerId => this.markers.push({ markerId: markerId, ...point }));
         });
       });
+    });
+
+    window.addEventListener('map:category-changed', (event: CustomEvent) => {
+      if (event.detail.toggled) {
+        let markersToAdd = this.hiddenMarkers
+          .filter(marker => {
+            return marker.category.name === event.detail.name
+          });
+
+          markersToAdd.forEach(marker => {
+            this.map.addMarker({
+              coordinate: { lat: marker.coordinate.latitude, lng: marker.coordinate.longitude },
+              iconUrl: `assets/img/markers/${marker.category.cssClass ? marker.category.cssClass + '-' : ''}marker.png`
+            }).then(markerId => this.markers.push({ ...marker, markerId: markerId,  }))
+          });
+      } else {
+        let markersToRemove = this.markers
+          .filter(marker => marker.category.name === event.detail.name);
+        
+        if (markersToRemove.length !== 0) {
+          this.map.removeMarkers(markersToRemove.map(marker => marker.markerId));
+        }
+
+        this.hiddenMarkers.push(...markersToRemove);
+        this.markers = this.markers.filter(marker => marker.category.name !== event.detail.name);
+      }
     });
   }
 }
