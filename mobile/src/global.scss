@@ -28,7 +28,9 @@
 $border-color: #dedede;
 
 :root {
+  // toolbar itself
   --ion-toolbar-background: #0F61A6;
+  // header font
   --ion-toolbar-color: #FFFFFF;
 
   --ion-tab-bar-background: #0F61A6;
@@ -41,6 +43,16 @@ $border-color: #dedede;
 @font-face {
   font-family: sailec;
   src: url('assets/fonts/Sailec.otf');
+}
+
+ion-toolbar {
+  ion-segment-button.ion-activatable {
+    color: #DDD;
+    
+    &.ios.segment-button-checked {
+      color: black;
+    }
+  }
 }
 
 .detail-list {
