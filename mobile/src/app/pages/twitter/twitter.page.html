@@ -26,7 +26,7 @@
   </ion-refresher>
 
   <div *ngFor="let tweet of tweets">
-    <ion-card class="tweet" [hidden]="tweet.retweet && hideRetweets">
+    <ion-card class="tweet" [hidden]="tweet.retweet && hideRetweets == 'true'">
       <ion-item color="light" lines="full">
         <ion-avatar slot="start">
           <img [src]="tweet.profileImage" />
@@ -48,7 +48,7 @@
         </ion-label>
       </ion-item>
 
-      <ion-card-content class="retweet" [hidden]="tweet.retweetedBy.length == 0 || !hideRetweets">
+      <ion-card-content class="retweet" [hidden]="tweet.retweetedBy.length == 0 || hideRetweets === 'false'">
         <ion-row>
           <ion-icon name="repeat-outline" style="padding-top: 3px; margin-right: 5px;"></ion-icon>
           <ion-label>

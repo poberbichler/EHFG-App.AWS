@@ -23,7 +23,6 @@ export class MapPage implements OnInit {
   private map: GoogleMap;
 
   ngOnInit(): void {
-    // wtf, this actually works
     window.addEventListener('map:category-changed', (event: CustomEvent) => {
       if (event.detail.toggled) {
         let markersToAdd = this.hiddenMarkers

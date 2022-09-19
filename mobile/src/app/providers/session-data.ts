@@ -6,18 +6,25 @@ import { ConferenceDay } from "../data/conferenceday";
 import { Speaker } from "../data/speaker";
 import { Session } from "../data/session";
 import { map, mergeMap } from "rxjs/operators";
+import { Storage } from "@ionic/storage-angular";
 
 
 @Injectable()
 export class SessionData {
-
     constructor(
         private http: HttpClient,
-        private cache: CacheService) { }
+        private cache: CacheService,
+        private storage: Storage) { }
+
+    private readonly FAVOURITE_SESSION: string = "favouriteSessionIds";
 
     getSessions(): Observable<Map<string, ConferenceDay>> {
         return this.cache.loadFromObservable("sessions",
-            this.http.get("https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod/sessions"));
+            this.http.get("https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod/sessions"))
+            .pipe(map(data => {
+                this.updateFavouriteSessions(data)
+                return data;
+            }));
     }
 
     getSessionById(sessionId: string): Observable<Session> {
@@ -33,5 +40,41 @@ export class SessionData {
                 .flatMap(key => data[key].sessions)
                 .filter((session: Session) => session.speakers.indexOf(speaker.id) !== -1)
             ));
+    }
+
+    getFavouriteSessions(): Promise<string[]> {
+        return this.storage.get(this.FAVOURITE_SESSION).then(arrayFromStorage => {
+            return Promise.resolve(arrayFromStorage || []);
+        });
+    }
+
+    /* why is this needed? */
+    private updateFavouriteSessions(data: Map<string, ConferenceDay>): void {
+        this.getFavouriteSessions().then(favouriteSessions => {
+            Object.keys(data).map(key => data[key].sessions)
+                .reduce((x, y) => x.concat(y), []) // flatMap
+                .forEach(session => session.favourite = favouriteSessions.indexOf(session.id) !== -1);
+        });
+    }
+
+    isFavouriteSession(session: Session): Promise<boolean> {
+        return this.getFavouriteSessions()
+            .then(favouriteSessions => favouriteSessions.indexOf(session.id) !== -1);
+    }
+
+    toggleFavouriteSession(sessionId: string): Promise<boolean> {
+        return this.getFavouriteSessions().then(favouriteSessions => {
+            let index = favouriteSessions.indexOf(sessionId);
+
+            if (index === -1) {
+                favouriteSessions.push(sessionId);
+                this.storage.set(this.FAVOURITE_SESSION, favouriteSessions);
+                return true;
+            } else {
+                favouriteSessions.splice(index, 1);
+                this.storage.set(this.FAVOURITE_SESSION, favouriteSessions);
+                return false;
+            }
+        });
     }
 }

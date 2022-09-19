@@ -13,7 +13,7 @@ export class TwitterPage {
   tweets: any[];
   tweetData: any;
 
-  hideRetweets: boolean = true;
+  hideRetweets: string = 'true';
 
   ngOnInit(): void {
     window.addEventListener('twitter:show-retweets', (event: CustomEvent) => {

@@ -8,9 +8,14 @@
       </ion-menu-toggle>
     </ion-buttons>
 
-    <ion-title>
-      Sessions
-    </ion-title>
+    <ion-segment [(ngModel)]="showAllSessions" (ionChange)="updateSessions()" color="light">
+      <ion-segment-button value="true">
+        All
+      </ion-segment-button>
+      <ion-segment-button value="false">
+        Favourites
+      </ion-segment-button>
+    </ion-segment>
   </ion-toolbar>
 </ion-header>
 
@@ -21,10 +26,14 @@
         <ion-label>{{day}}</ion-label>
       </ion-item-divider>
 
-      <ion-item *ngFor="let session of dayMap[day].sessions" lines="full">
-        <ion-label class="session-item" routerLink="/sessions/{{session.id}}">
+      <ion-item lines="full" 
+        *ngFor="let session of dayMap[day].sessions" 
+        [hidden]="!session.favourite && showAllSessions === 'false'">
+        <ion-label class="session-item" 
+          routerLink="/sessions/{{session.id}}">
           <h2>{{session.code}} - {{session.name}}</h2>
-          <p>{{session.startTime | date:'HH:mm':'+2' }} - {{session.endTime | date:'HH:mm':'+2'}}: {{session.location}}</p>
+          <p>{{session.startTime | date:'HH:mm':'+2' }} - {{session.endTime | date:'HH:mm':'+2'}}: {{session.location}}
+          </p>
         </ion-label>
       </ion-item>
     </div>

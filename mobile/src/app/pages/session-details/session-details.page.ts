@@ -27,6 +27,10 @@ export class SessionDetailsPage {
         this.session = session;
         this.speakerData.getSpeakersByIds(this.session.speakers).subscribe(speakers => this.speakers = speakers);
       });
+  }
 
+  toggleFavouriteSession(): void {
+    this.sessionData.toggleFavouriteSession(this.session.id)
+      .then(result => this.session.favourite = result);
   }
 }

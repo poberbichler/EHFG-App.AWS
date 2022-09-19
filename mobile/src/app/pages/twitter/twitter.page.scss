@@ -12,11 +12,12 @@ ion-card.tweet {
         padding-bottom: 5px;
     }
 
-    .ios {
+    &.ios {
         border: 1px solid lightgray;
         margin-top: 4px;
         margin-bottom: 4px;
     }
+    
 
     ion-item.tweet-text ion-label{
         margin-bottom: 5px;
