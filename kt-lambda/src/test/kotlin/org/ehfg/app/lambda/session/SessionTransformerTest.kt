@@ -33,7 +33,7 @@ internal class SessionTransformerTest {
                 assertThat(result).isNotEmpty;
                 assertThat(result.keys).containsAll(SessionTransformer.DAYS.keys)
                 assertThat(result["2022-09-26"]!!.sessions).hasSize(4)
-                assertThat(result["2022-09-27"]!!.sessions).hasSize(13)
+                assertThat(result["2022-09-27"]!!.sessions).hasSize(12)
                 assertThat(result["2022-09-28"]!!.sessions).hasSize(14)
                 assertThat(result["2022-09-29"]!!.sessions).hasSize(5)
 
@@ -44,7 +44,7 @@ internal class SessionTransformerTest {
                         assertThat(session.code).isEqualTo("S5")
                         assertThat(session.description).startsWith("Can the European Health Union be real and tangible")
                         assertThat(session.location).isEqualTo("Conference Centre")
-                        assertThat(session.speakers).containsExactly("2241", "2242", "2243", "1529")
+                        assertThat(session.speakers).containsExactly("2241", "2242", "2243", "1739", "392", "2292", "2293", "2298", "1529")
                         assertThat(session.id).isEqualTo("2139")
                         assertThat(session.name).isEqualTo("Reducing health inequalities: cancer care as a blueprint")
                         assertThat(session.startTime).isEqualTo(1664262000000L)

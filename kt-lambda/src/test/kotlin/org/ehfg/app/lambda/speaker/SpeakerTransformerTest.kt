@@ -29,7 +29,7 @@ internal class SpeakerTransformerTest {
             object : TypeReference<List<Event>>() {})
             .run { speakerTransformer.transform(this) }
             .also { result ->
-                assertThat(result).hasSize(125)
+                assertThat(result).hasSize(157)
                 result
                     .single { it.id == "2270" }
                     .also { speaker ->
@@ -39,6 +39,7 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.description).isEqualTo("Institute of Hygiene and Tropical Medicine")
                         assertThat(speaker.fullName).isEqualTo("Carla Maia")
                         assertThat(speaker.imageUrl).isEqualTo("https://www.ehfg.org/fileadmin/_processed_/9/4/csm_Maia_Carla_7a8bfef62a.jpeg")
+                        assertThat(speaker.biography).startsWith("2022 Habilitation in Biomedical SciencesParasitology Instituto de Higiene e Medicina Tropical")
                     }
 
                 result
@@ -49,7 +50,7 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.lastName).isEqualTo("Di Sabatino")
                         assertThat(speaker.description).isEqualTo("Department of Physics and Astronomy")
                         assertThat(speaker.fullName).isEqualTo("Silvana Di Sabatino")
-                        assertThat(speaker.imageUrl).isEqualTo("default")
+                        assertThat(speaker.imageUrl).isEqualTo("https://ehfg-app-public.s3.eu-central-1.amazonaws.com/assets/img/speakers/speakersdefaultperson.jpg")
                     }
 
                 assertThat(result).isSortedAccordingTo(Comparator.comparing { it.fullName })

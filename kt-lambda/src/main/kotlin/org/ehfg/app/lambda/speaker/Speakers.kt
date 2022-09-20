@@ -5,7 +5,8 @@ data class EventSpeaker(
     val firstName: String,
     val lastName: String,
     val description: String,
-    val imageUrl: String
+    val imageUrl: String,
+    val biography: String
 ) {
     val fullName: String
         get() = "$firstName $lastName"

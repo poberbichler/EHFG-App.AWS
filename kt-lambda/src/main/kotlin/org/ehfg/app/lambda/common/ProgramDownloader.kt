@@ -14,8 +14,12 @@ import java.net.http.HttpResponse.BodyHandlers
 class ProgramDownloader(val objectMapper: ObjectMapper) {
     val logger: Logger = LoggerFactory.getLogger(this.javaClass)
 
-    fun download(): List<Event> {
+    fun downloadAndConvert(): List<Event> {
+        return download()
+            .run { objectMapper.readValue(this, object : TypeReference<List<Event>>() {}) }
+    }
 
+    fun download(): String {
         val request = HttpRequest.newBuilder().GET()
             .uri(URI.create("https://www.ehfg.org/programme.json?year=2022"))
             .build()
@@ -25,11 +29,10 @@ class ProgramDownloader(val objectMapper: ObjectMapper) {
         return HttpClient.newHttpClient()
             .send(request, BodyHandlers.ofString())
             .body()
-            // the backend doesn't return proper json, so we have to fix it...
             .replace(
                 "Organised by Gesundheit Österreich GmbH (Austrian National Public Health Institute) in the framework of the Austrian federal \"Agenda Health Promotion\"",
                 """Organised by Gesundheit Österreich GmbH (Austrian National Public Health Institute) in the framework of the Austrian federal \"Agenda Health Promotion\""""
             )
-            .run { objectMapper.readValue(this, object : TypeReference<List<Event>>() {}) }
+            .replace("&#039;", "'")
     }
 }

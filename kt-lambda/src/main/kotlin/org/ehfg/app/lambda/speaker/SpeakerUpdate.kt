@@ -17,7 +17,7 @@ class SpeakerUpdate(
     override fun accept(input: Any) {
         log.info("updating speakers... {} - {}", input, input.javaClass);
 
-        this.downloader.download()
+        this.downloader.downloadAndConvert()
             .run { speakerTransformer.transform(this) }
             .run { uploader.upload("speakers.json", this) }
     }

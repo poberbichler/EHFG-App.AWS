@@ -25,6 +25,7 @@ class SpeakerTransformer {
         firstName = it.firstName,
         lastName = it.lastName,
         description = it.organisation,
-        imageUrl = it.image ?: "default"
+        imageUrl = it.image ?: "https://ehfg-app-public.s3.eu-central-1.amazonaws.com/assets/img/speakers/speakersdefaultperson.jpg",
+        biography = it.biography
     )
 }

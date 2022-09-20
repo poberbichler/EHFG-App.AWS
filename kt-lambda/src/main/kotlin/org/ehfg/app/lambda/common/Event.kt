@@ -36,6 +36,7 @@ data class Speaker(
     val speaker: String,
     val speakerid: String,
     val organisation: String,
+    val biography: String,
     val image: String?
 ) {
     val firstName: String

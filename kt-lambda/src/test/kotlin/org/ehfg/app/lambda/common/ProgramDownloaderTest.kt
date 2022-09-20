@@ -12,7 +12,7 @@ internal class ProgramDownloaderTest {
 
     @Test
     fun shouldDownload() {
-        val eventList = this.programDownloader.download()
+        val eventList = this.programDownloader.downloadAndConvert()
         assertThat(eventList).isNotEmpty
 
         eventList.single { it.eventshortid == "S4" }
@@ -29,5 +29,11 @@ internal class ProgramDownloaderTest {
                 assertThat(session.description).isNotBlank
                 assertThat(session.speakers).hasSize(10)
             }
+    }
+
+    @Test
+    fun handleEscapedCharacters() {
+        assertThat(this.programDownloader.download())
+            .doesNotContain("&#")
     }
 }

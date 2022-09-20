@@ -17,7 +17,7 @@ class SessionUpdate(
     override fun accept(input: Any) {
         log.info("updating session... {} - {}", input, input.javaClass);
 
-        this.downloader.download()
+        this.downloader.downloadAndConvert()
             .run { sessionTransformer.transform(this) }
             .run { uploader.upload("sessions.json", this) }
     }
