@@ -20,10 +20,7 @@ export class SessionData {
 
     getSessions(): Observable<Map<string, ConferenceDay>> {
         return this.cache.loadFromObservable("sessions",
-            this.http.get("https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod/sessions"))
-            .pipe(tap(data => {
-                this.updateFavouriteSessions(data)
-            }));
+            this.http.get("https://vg3eqhj2s7.execute-api.eu-central-1.amazonaws.com/prod/sessions"));
     }
 
     getSessionById(sessionId: string): Observable<Session> {
@@ -44,14 +41,6 @@ export class SessionData {
     getFavouriteSessions(): Promise<string[]> {
         return this.storage.get(this.FAVOURITE_SESSION).then(arrayFromStorage => {
             return Promise.resolve(arrayFromStorage || []);
-        });
-    }
-
-    private updateFavouriteSessions(data: Map<string, ConferenceDay>): void {
-        this.getFavouriteSessions().then(favouriteSessions => {
-            Object.keys(data).map(key => data[key].sessions)
-                .reduce((x, y) => x.concat(y), []) // flatMap
-                .forEach(session => session.favourite = favouriteSessions.indexOf(session.id) !== -1);
         });
     }
 

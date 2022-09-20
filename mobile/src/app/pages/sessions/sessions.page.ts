@@ -24,26 +24,39 @@ export class SessionsPage implements OnInit {
     });
   }
 
-  updateSessions(): void {
-    if (this.showAllSessions == 'true') {
-      Object.keys(this.dayMap).forEach(key => {
-        this.dayMap[key].hidden = false;
-      });
-    }
-
-    else {
-      Object.keys(this.dayMap).forEach(key => {
-        let day = this.dayMap[key];
-
-        let showDay: boolean = false;
-        day.sessions.forEach(session => {
-          showDay = showDay || (session.favourite !== undefined && session.favourite === true);
-        });
-
-        console.log('updating day', day);
-        console.log('day.hidden is', !showDay);
-        day.hidden = !showDay;
-      });
-    }
+  ionViewDidEnter() {
+    this.updateSessions();
   }
+
+  updateSessions(): void {
+    this.sessionData.getFavouriteSessions().then(sessionIds => {
+      Object.keys(this.dayMap).forEach(dayKey => {
+        let day = this.dayMap[dayKey];
+
+        day.sessions.forEach(session => {
+          console.log('updating session')
+          session.favourite = sessionIds.indexOf(session.id) !== -1;
+        });
+      });
+
+
+      if (this.showAllSessions == 'true') {
+        Object.keys(this.dayMap).forEach(key => {
+          this.dayMap[key].hidden = false;
+        });
+      } else {
+        Object.keys(this.dayMap).forEach(key => {
+          let day = this.dayMap[key];
+
+          let showDay: boolean = false;
+          day.sessions.forEach(session => {
+            showDay = showDay || (session.favourite !== undefined && session.favourite === true);
+          });
+
+          day.hidden = !showDay;
+        });
+      }
+    });
+  }
+
 }
