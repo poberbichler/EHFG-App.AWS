@@ -18,10 +18,7 @@ export class TwitterPage {
   ngOnInit(): void {
     window.addEventListener('twitter:show-retweets', (event: CustomEvent) => {
       this.hideRetweets = event.detail.value;
-      console.log('hideRetweet is now', this.hideRetweets);
     })
-
-    console.log('hideRetweet is now', this.hideRetweets);
       
     this.twitterData.getInitialTweets().subscribe(tweetData => {
       this.tweets = tweetData.data;
@@ -30,7 +27,6 @@ export class TwitterPage {
   }
 
   loadData(event) {
-    console.log("infinite scroll triggered...", event);
     this.twitterData.getTweetPage(this.tweetData.currentPage + 1).subscribe(tweetData => {
       this.tweetData = tweetData;
       this.tweets = this.tweets.concat(tweetData.data);
@@ -39,7 +35,6 @@ export class TwitterPage {
   }
 
   doRefresh(event) {
-    console.log('refresh triggered...');
     this.twitterData.getNewerTweets(this.tweets[0].id).subscribe(newerTweets => {
       this.tweets = newerTweets.concat(this.tweets);
       event.target.complete();

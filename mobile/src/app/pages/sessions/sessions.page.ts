@@ -34,7 +34,6 @@ export class SessionsPage implements OnInit {
         let day = this.dayMap[dayKey];
 
         day.sessions.forEach(session => {
-          console.log('updating session')
           session.favourite = sessionIds.indexOf(session.id) !== -1;
         });
       });

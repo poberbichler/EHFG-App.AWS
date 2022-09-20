@@ -6,16 +6,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   templateUrl: './map-modal.page.html',
   styleUrls: ['./map-modal.page.scss'],
 })
-export class MapModalPage implements OnInit {
+export class MapModalPage {
 
   constructor(private domSanitizer: DomSanitizer) { }
 
   @Input()
   marker: any;
-
-  ngOnInit() {
-   console.log(this.marker);
-  }
 
   get markerDescription() {
     return this.domSanitizer.bypassSecurityTrustHtml(this.marker.description);

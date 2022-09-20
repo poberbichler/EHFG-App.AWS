@@ -27,7 +27,7 @@
         </ion-list>
 
         <ion-list [hidden]="!tweetPageActive">
-          <ion-radio-group value="true" (ionChange)="showRetweetsChanged($event)">
+          <ion-radio-group [(ngModel)]="hideRetweets" value="true" (ionChange)="showRetweetsChanged()">
             <ion-list-header>Twitter</ion-list-header>
 
             <ion-item>

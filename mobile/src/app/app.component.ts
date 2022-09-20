@@ -12,7 +12,7 @@ export class AppComponent {
     this.cacheService.setDefaultTTL(60 * 60); // 1 hour
   }
 
-  hideRetweets: boolean = true;
+  hideRetweets: string = 'true';
 
   readonly mapCategories = [{
     "name": "Venues",
@@ -31,8 +31,7 @@ export class AppComponent {
     "toggled": true
   }];
 
-  showRetweetsChanged(event: CustomEvent) {
-    this.hideRetweets = event.detail.value;
+  showRetweetsChanged() {
     window.dispatchEvent(new CustomEvent('twitter:show-retweets', { detail: { value: this.hideRetweets } }));
   }
 
@@ -44,8 +43,8 @@ export class AppComponent {
     return this.router.url === '/map';
   }
 
-  categoryToggleChanged(event: CustomEvent) {
-    window.dispatchEvent(new CustomEvent('map:category-changed', { detail: event }));
+  categoryToggleChanged(category) {
+    window.dispatchEvent(new CustomEvent('map:category-changed', { detail: category }));
   }
 
   resetData(): void {
