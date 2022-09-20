@@ -39,7 +39,7 @@
     {{session.description}}
   </div>
 
-  <ion-list class="detail-list" inset="true">
+  <ion-list class="detail-list" inset="true" [hidden]="speakers.length === 0">
     <ion-list-header color="light">
       <ion-label>Speakers</ion-label>
     </ion-list-header>

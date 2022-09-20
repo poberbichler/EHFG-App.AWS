@@ -36,7 +36,7 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.id).isEqualTo("2270")
                         assertThat(speaker.firstName).isEqualTo("Carla")
                         assertThat(speaker.lastName).isEqualTo("Maia")
-                        assertThat(speaker.description).isEqualTo("Institute of Hygiene and Tropical Medicine")
+                        assertThat(speaker.organisation).isEqualTo("Institute of Hygiene and Tropical Medicine")
                         assertThat(speaker.fullName).isEqualTo("Carla Maia")
                         assertThat(speaker.imageUrl).isEqualTo("https://www.ehfg.org/fileadmin/_processed_/9/4/csm_Maia_Carla_7a8bfef62a.jpeg")
                         assertThat(speaker.biography).startsWith("2022 Habilitation in Biomedical SciencesParasitology Instituto de Higiene e Medicina Tropical")
@@ -48,7 +48,7 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.id).isEqualTo("2261")
                         assertThat(speaker.firstName).isEqualTo("Silvana")
                         assertThat(speaker.lastName).isEqualTo("Di Sabatino")
-                        assertThat(speaker.description).isEqualTo("Department of Physics and Astronomy")
+                        assertThat(speaker.organisation).isEqualTo("Department of Physics and Astronomy")
                         assertThat(speaker.fullName).isEqualTo("Silvana Di Sabatino")
                         assertThat(speaker.imageUrl).isEqualTo("https://ehfg-app-public.s3.eu-central-1.amazonaws.com/assets/img/speakers/speakersdefaultperson.jpg")
                     }

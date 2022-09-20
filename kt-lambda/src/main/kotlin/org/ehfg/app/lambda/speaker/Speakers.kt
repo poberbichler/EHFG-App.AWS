@@ -4,7 +4,7 @@ data class EventSpeaker(
     val id: String,
     val firstName: String,
     val lastName: String,
-    val description: String,
+    val organisation: String,
     val imageUrl: String,
     val biography: String
 ) {

@@ -13,12 +13,15 @@
 <ion-content [fullscreen]="true">
   <div class="ion-padding">
     <img src="{{speaker.imageUrl}}" />
-    <p>
-      {{speaker.description}}
+    <h5>
+      {{speaker.organisation}}
+    </h5>
+
+    <p [innerHtml]="speaker.biography">
     </p>
   </div>
 
-  <ion-list class="detail-list" inset="true">
+  <ion-list class="detail-list" inset="true" [hidden]="sessions.length === 0">
     <ion-list-header color="light">
       <ion-label>Sessions</ion-label>
     </ion-list-header>

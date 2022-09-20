@@ -3,6 +3,7 @@ export class Speaker {
   firstName: string;
   lastName: string;
   imageUrl: string;
-  description: string;
+  organisation: string;
   fullName: string;
+  biography: string;
 }
