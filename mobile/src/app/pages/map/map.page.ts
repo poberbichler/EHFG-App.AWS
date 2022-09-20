@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { MenuController, ModalController, Platform } from '@ionic/angular';
+import { Platform } from '@ionic/angular';
 import { PointData } from 'src/app/providers/point-data';
-import { MapModalPage } from '../map-modal/map-modal.page';
+import { GoogleMaps, LatLng } from "@ionic-native/google-maps";
 
 declare const google: any;
 
@@ -15,126 +15,91 @@ export class MapPage implements OnInit {
   constructor(
     private platform: Platform,
     private pointData: PointData,
-    private googleMaps: GoogleMaps,
-    private modalController: ModalController) { }
+    private googleMaps: GoogleMaps) { }
 
   private markers: any[] = [];
-  private hiddenMarkers: any[] = [];
-
 
   @ViewChild('map') mapElement: ElementRef;
 
-  //private map: GoogleMap;
-
   ngOnInit(): void {
+    window.addEventListener('map:category-changed', (event: CustomEvent) => {
+      this.markers.filter(marker => marker.category === event.detail.name)
+        .forEach(marker => marker.setVisible(event.detail.toggled));
+    });
   }
 
   ionViewDidEnter() {
     if (this.isNative()) {
       this.platform.ready().then(() => {
         let map = this.createNativeMap();
-        this.http.get(this.globals.baseUrl + "points").subscribe(data => this.createNativeMarker(data, map));
-        this.workaroundSideMenu(map);
+        this.pointData.getPoints().subscribe(data => this.createNativeMarker(data, map));
+        //TODOthis.workaroundSideMenu(map);
+      });
+    } else {
+      let map = new google.maps.Map(this.mapElement.nativeElement, {
+        center: { lat: 47.170329, lng: 13.103852 },
+        zoom: 16
+      });
+
+      this.pointData.getPoints().subscribe(points => {
+        points.forEach(point => {
+          let marker = new google.maps.Marker({
+            position: { lat: point.coordinate.latitude, lng: point.coordinate.longitude },
+            map: map,
+            icon: `assets/img/markers/${point.category.cssClass ? point.category.cssClass + '-' : ''}marker.png`,
+            category: point.category.name
+          });
+
+          marker.addListener('click', () => {
+            let infoWindow = new google.maps.InfoWindow({
+              content: `<p>${point.description}</p>`
+            });
+
+            infoWindow.open(map, marker);
+          });
+
+          this.markers.push(marker);
+        });
       });
     }
   }
-
 
   private createNativeMap() {
     return this.googleMaps.create(this.mapElement.nativeElement, {
-      'controls': {
-        'compass': true,
-        'myLocationButton': true,
-        'indoorPicker': true,
-        'zoom': true
+      controls: {
+        compass: true,
+        myLocationButton: true,
+        indoorPicker: true,
+        zoom: true
       },
-      'gestures': {
-        'scroll': true,
-        'tilt': true,
-        'rotate': true,
-        'zoom': true
+      gestures: {
+        scroll: true,
+        tilt: true,
+        rotate: true,
+        zoom: true
       },
-      'camera': {
-        'latLng': new LatLng(47.170329, 13.103852),
-        'zoom': 16
+      camera: {
+        target: { lat: 47.170329, lng: 13.103852 },
+        zoom: 16
       }
     });
   }
-  /*
-  const mapConfig = {
-    center: {
-      lat: 47.170329,
-      lng: 13.103852,
-    },
-    zoom: 16,
-    androidLiteMode: false,
-  };
 
-  const mapOptions = {
-    id: "ehfg-map",
-    apiKey: "AIzaSyDVVBimV3mdTV3V2kYCr5qpp9otxBO30D0",
-    config: mapConfig,
-    element: document.getElementById('map'),
-  };
-
-  GoogleMap.create(mapOptions).then(map => {
-    this.map = map;
-
-    map.setOnMarkerClickListener(marker => {
-      this.modalController.create({
-        component: MapModalPage,
-        breakpoints: [0, 0.3, 0.5],
-        initialBreakpoint: 0.3,
-        componentProps: {
-          marker: this.markers.find(it => it.markerId === marker.markerId)
-        }
-      }).then(modal => {
-        modal.present();
+  private createNativeMarker(input: any, map: any) {
+    input.json().forEach(point => {
+      map.addMarker({
+        icon: `assets/img/markers/${point.category.cssClass ? point.category.cssClass + '-' : ''}marker.png`,
+        position: new LatLng(point.coordinate.latitude, point.coordinate.longitude),
+        title: point.name,
+        snippet: point.descriptionNative
+      }).then(marker => {
+        marker.set('category', point.category.name);
+        this.markers.push(marker);
       });
     });
-
-    this.pointData.getPoints().subscribe(points => {
-      points.forEach(point => {
-        const data = {
-          coordinate: { lat: point.coordinate.latitude, lng: point.coordinate.longitude },
-          iconUrl: `assets/img/markers/${point.category.cssClass ? point.category.cssClass + '-' : ''}marker.png`
-        };
-
-        map.addMarker(data)
-          .then(markerId => this.markers.push({ markerId: markerId, ...point }));
-      });
-    });
-  });
-
-  window.addEventListener('map:category-changed', (event: CustomEvent) => {
-    if (event.detail.toggled) {
-      let markersToAdd = this.hiddenMarkers
-        .filter(marker => {
-          return marker.category.name === event.detail.name
-        });
-
-        markersToAdd.forEach(marker => {
-          this.map.addMarker({
-            coordinate: { lat: marker.coordinate.latitude, lng: marker.coordinate.longitude },
-            iconUrl: `assets/img/markers/${marker.category.cssClass ? marker.category.cssClass + '-' : ''}marker.png`
-          }).then(markerId => this.markers.push({ ...marker, markerId: markerId,  }))
-        });
-    } else {
-      let markersToRemove = this.markers
-        .filter(marker => marker.category.name === event.detail.name);
-      
-      if (markersToRemove.length !== 0) {
-        this.map.removeMarkers(markersToRemove.map(marker => marker.markerId));
-      }
-
-      this.hiddenMarkers.push(...markersToRemove);
-      this.markers = this.markers.filter(marker => marker.category.name !== event.detail.name);
-    }
-  });
-}*/
-
+  }
 
   private isNative() {
-    return this.platform.is('cordova') === true;
+    return this.platform.is('cordova');
   }
 }

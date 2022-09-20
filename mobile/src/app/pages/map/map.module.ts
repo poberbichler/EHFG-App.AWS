@@ -8,6 +8,8 @@ import { MapPage } from './map.page';
 import { MapPageRoutingModule } from './map-routing.module';
 import { MapModalPageModule } from '../map-modal/map-modal.module';
 
+import { GoogleMaps } from "@ionic-native/google-maps";
+
 @NgModule({
   imports: [
     IonicModule,
@@ -20,6 +22,8 @@ import { MapModalPageModule } from '../map-modal/map-modal.module';
   declarations: [
     MapPage
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA] 
+  providers: [
+    GoogleMaps
+  ]
 })
-export class MapPageModule {}
+export class MapPageModule { }
