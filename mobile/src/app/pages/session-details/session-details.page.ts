@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NavController } from '@ionic/angular';
 import { Session } from 'src/app/data/session';
 import { Speaker } from 'src/app/data/speaker';
 import { SessionData } from 'src/app/providers/session-data';
@@ -17,7 +18,8 @@ export class SessionDetailsPage {
   constructor(
     private sessionData: SessionData,
     private speakerData: SpeakerData,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private navCtrl: NavController
   ) { }
 
   ionViewDidEnter() {

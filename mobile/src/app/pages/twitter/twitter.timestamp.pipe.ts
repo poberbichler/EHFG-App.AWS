@@ -10,7 +10,7 @@ export class TwitterTimestampPipe implements PipeTransform {
 
   constructor() { }
 
-  transform(input: number, args: string[]): any {
+  transform(input: number, args: string[] = []): any {
     let difference: number = this.currentTime().getTime() - this.getUtcTimeFor(input).getTime();
     if (difference < this.day) {
       if (difference < this.minute) {

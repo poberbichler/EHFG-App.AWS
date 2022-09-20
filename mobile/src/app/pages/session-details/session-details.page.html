@@ -45,7 +45,7 @@
     </ion-list-header>
 
     <ion-item *ngFor="let speaker of speakers" lines="full">
-      <ion-label routerLink="/speakers/{{speaker.id}}">
+      <ion-label routerLink="/speakers/{{speaker.id}}" routerDirection="forward">
         {{speaker.fullName}}
       </ion-label>
     </ion-item>
