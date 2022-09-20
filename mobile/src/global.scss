@@ -68,6 +68,10 @@ ion-toolbar {
   }
 }
 
+span.hashtag {
+  color: var(--ion-color-primary);
+}
+
 /* by default, hide the cropped logo */
 .navbar-logo-cropped {
   display: none;
