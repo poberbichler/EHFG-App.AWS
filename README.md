@@ -10,7 +10,7 @@ private-aws-profile
 ```
 
 # How to deploy web app
-````
+```
 cd mobile
 ionic build --prod
 private-aws-profile
@@ -21,4 +21,17 @@ aws s3 sync www s3:ehfg-app-public
 ```
 cd mobile
 
+```
+
+# mobile knowledge
+### Create splashscreen and icons
+
+https://capacitorjs.com/docs/guides/splash-screens-and-icons
+
+```
+# In case the plugin is not installed
+# npm install -g cordova-res
+
+cordova-res ios --skip-config --copy
+cordova-res android --skip-config --copy
 ```
