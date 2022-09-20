@@ -1,17 +1,9 @@
-capacitor-google-map {
-  display: inline-block;
-  width: 275px;
-  height: 400px;
+page-map {
+  #map {
+    height: 100%;
+  }
 }
 
-ion-content {
-  --background: transparent;
-}
-
-ion-app {
-  --background: transparent;
-}
-
-html, body {
-  --ion-background-color: transparent !important;
+ion-app._gmaps_cdv_ .nav-decor {
+  background-color: transparent !important;
 }

@@ -1,7 +1,7 @@
 {
   "name": "ehfg-app",
   "version": "0.0.1",
-  "author": "Ionic Framework",
+  "author": "Patrick Oberbichler",
   "homepage": "https://ionicframework.com/",
   "scripts": {
     "ng": "ng",
@@ -20,6 +20,7 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@ionic/angular": "^6.1.9",
+    "@ionic/cordova-builders": "^7.0.0",
     "@ionic/storage-angular": "^3.0.6",
     "ionic-cache": "^6.0.3",
     "ionicons": "^6.0.3",
@@ -37,12 +38,21 @@
     "@angular/compiler": "^14.0.0",
     "@angular/compiler-cli": "^14.0.0",
     "@angular/language-service": "^14.0.0",
-    "@ionic/angular-toolkit": "^6.0.0",
+    "@ionic/angular-toolkit": "^7.0.0",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
     "@typescript-eslint/eslint-plugin": "5.3.0",
     "@typescript-eslint/parser": "5.3.0",
+    "cordova-android": "^10.1.2",
+    "cordova-ios": "^6.2.0",
+    "cordova-plugin-device": "2.0.2",
+    "cordova-plugin-googlemaps": "^2.7.1",
+    "cordova-plugin-googlemaps-sdk": "github:mapsplugin/cordova-plugin-googlemaps-sdk",
+    "cordova-plugin-ionic-keyboard": "^2.0.5",
+    "cordova-plugin-ionic-webview": "^5.0.0",
+    "cordova-plugin-splashscreen": "5.0.2",
+    "cordova-plugin-statusbar": "^2.4.2",
     "eslint": "^7.6.0",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-jsdoc": "30.7.6",
@@ -59,5 +69,19 @@
     "ts-node": "~8.3.0",
     "typescript": "~4.7.3"
   },
-  "description": "An Ionic project"
+  "description": "An Ionic project",
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-statusbar": {},
+      "cordova-plugin-device": {},
+      "cordova-plugin-splashscreen": {},
+      "cordova-plugin-ionic-webview": {},
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-googlemaps": {}
+    },
+    "platforms": [
+      "ios",
+      "android"
+    ]
+  }
 }

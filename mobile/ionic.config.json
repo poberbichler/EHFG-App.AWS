@@ -1,7 +1,11 @@
 {
   "name": "ehfg-app",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {
+      "enabled": false
+    },
+    "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "id": "org.ehfg.app"
 }

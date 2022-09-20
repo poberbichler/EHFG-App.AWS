@@ -7,7 +7,6 @@ import { MapPage } from './map.page';
 
 import { MapPageRoutingModule } from './map-routing.module';
 import { MapModalPageModule } from '../map-modal/map-modal.module';
-import { CapacitorGoogleMaps } from '@capacitor/google-maps/dist/typings/implementation';
 
 @NgModule({
   imports: [
