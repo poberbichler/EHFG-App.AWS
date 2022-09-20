@@ -1,3 +1,11 @@
 ion-item.selected {
     --color: var(--ion-color-primary);
   }
+
+ion-router-outlet {
+  --background: transparent;
+}
+
+html, body {
+  --ion-background-color: transparent !important;
+}
