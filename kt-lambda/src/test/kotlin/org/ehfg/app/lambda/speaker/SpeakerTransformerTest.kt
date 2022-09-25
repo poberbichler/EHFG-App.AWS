@@ -39,7 +39,7 @@ internal class SpeakerTransformerTest {
                         assertThat(speaker.organisation).isEqualTo("Institute of Hygiene and Tropical Medicine")
                         assertThat(speaker.fullName).isEqualTo("Carla Maia")
                         assertThat(speaker.imageUrl).isEqualTo("https://www.ehfg.org/fileadmin/_processed_/9/4/csm_Maia_Carla_7a8bfef62a.jpeg")
-                        assertThat(speaker.biography).startsWith("2022 Habilitation in Biomedical SciencesParasitology Instituto de Higiene e Medicina Tropical")
+                        assertThat(speaker.description).startsWith("2022 Habilitation in Biomedical SciencesParasitology Instituto de Higiene e Medicina Tropical")
                     }
 
                 result

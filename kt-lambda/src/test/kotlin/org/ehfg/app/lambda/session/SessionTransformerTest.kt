@@ -47,8 +47,8 @@ internal class SessionTransformerTest {
                         assertThat(session.speakers).containsExactly("2241", "2242", "2243", "1739", "392", "2292", "2293", "2298", "1529")
                         assertThat(session.id).isEqualTo("2139")
                         assertThat(session.name).isEqualTo("Reducing health inequalities: cancer care as a blueprint")
-                        assertThat(session.startTime).isEqualTo(1664262000000L)
-                        assertThat(session.endTime).isEqualTo(1664267400000L)
+                        assertThat(session.startTime).isEqualTo(1664269200000L)
+                        assertThat(session.endTime).isEqualTo(1664274600000L)
                         assertThat(session.startTimeUtc).isEqualTo("2022-09-27T07:00:00Z")
                         assertThat(session.endTimeUtc).isEqualTo("2022-09-27T08:30:00Z")
                     }

@@ -43,9 +43,10 @@ class SessionTransformer {
         code = input.eventshortid,
         day = input.date,
         speakers = input.speakers.map { it.speakerid },
-        startTime = input.startTimestamp.toInstant().toEpochMilli(),
-        endTime = input.endTimestamp.toInstant().toEpochMilli(),
         startTimeUtc = input.startTimestamp.format(DateTimeFormatter.ISO_INSTANT),
         endTimeUtc = input.endTimestamp.format(DateTimeFormatter.ISO_INSTANT),
+        // the old app is doing some shady shit here with the timestamp calculation}...
+        startTime = input.startTimestamp.plusHours(2).toInstant().toEpochMilli(),
+        endTime = input.endTimestamp.plusHours(2).toInstant().toEpochMilli(),
     )
 }
